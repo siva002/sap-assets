@@ -1,0 +1,18 @@
+apiVersion: gateway.kyma-project.io/v1beta1
+kind: APIRule
+metadata:
+  name: kyma-hello-world
+  namespace: demo
+spec:
+  # The public hostname — Kyma appends your cluster domain automatically.
+  # Result: https://kyma-hello-world.<your-cluster-id>.kyma.ondemand.com
+  host: kyma-hello-world
+  service:
+    name: kyma-hello-world
+    port: 80
+  gateway: kyma-system/kyma-gateway
+  rules:
+    - path: /.*
+      methods: ["GET"]
+      accessStrategies:
+        - handler: noop

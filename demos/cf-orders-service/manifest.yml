@@ -1,0 +1,19 @@
+---
+applications:
+  - name: order-service
+    memory: 256M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node app.js
+
+    # ── Services ──────────────────────────────────────────────────────────────
+    # Do NOT uncomment this yet. The demo sequence is:
+    #
+    #   Step 1: cf push                          → app starts, DB not ready
+    #   Step 2: cf bind-service order-service orders-db
+    #   Step 3: cf restage order-service         → VCAP_SERVICES injected, DB connects
+    #   Step 4: curl /orders                     → live data from HANA Cloud
+    #
+    # services:
+    #   - orders-db

@@ -1,0 +1,12 @@
+{
+  "name": "kyma-hello-world",
+  "version": "1.0.0",
+  "description": "Minimal Node.js app for SAP BTP Kyma runtime demo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

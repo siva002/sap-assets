@@ -1,0 +1,12 @@
+{
+  "name": "cf-hello-world",
+  "version": "1.0.0",
+  "description": "Minimal Node.js app for SAP BTP Cloud Foundry demo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
