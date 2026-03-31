@@ -10,6 +10,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@sap/hana-client": "^2.21.0"
+    "@sap/hana-client": "^2.21.0",
+    "@sap/xsenv": "^5.2.0"
   }
 }

@@ -1,0 +1,4 @@
+node_modules/
+
+# Local dev credentials — never commit real HANA credentials
+default-env.json

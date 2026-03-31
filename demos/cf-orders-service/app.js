@@ -17,7 +17,13 @@
  */
 
 const http = require('http')
-const db   = require('./db')
+
+// Load default-env.json when running locally (no-op in CF where VCAP_SERVICES is injected by the platform)
+if (!process.env.VCAP_SERVICES) {
+  require('@sap/xsenv').loadEnv()
+}
+
+const db = require('./db')
 
 const port = process.env.PORT || 3000
 
