@@ -1,0 +1,20 @@
+{
+  "authenticationMethod": "route",
+  "logout": {
+    "logoutEndpoint": "/logout"
+  },
+  "routes": [
+    {
+      "source": "^/api/(.*)",
+      "target": "/$1",
+      "destination": "orders-backend",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/",
+      "localDir": "resources",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}

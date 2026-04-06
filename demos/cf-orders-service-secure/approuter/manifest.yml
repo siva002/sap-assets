@@ -1,0 +1,19 @@
+---
+applications:
+  - name: orders-approuter
+    memory: 128M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node node_modules/@sap/approuter/approuter.js
+
+    env:
+      # Replace <BACKEND_URL> with the URL of orders-service-secure-backend after its first push.
+      # Run: cf app orders-service-secure-backend | grep routes
+      # forwardAuthToken: true tells the App Router to attach the JWT to every
+      # proxied request so the backend can validate it.
+      destinations: >
+        [{"name":"orders-backend","url":"https://orders-service-secure-backend.cfapps.ap21.hana.ondemand.com","forwardAuthToken":true}]
+
+    services:
+      - orders-xsuaa

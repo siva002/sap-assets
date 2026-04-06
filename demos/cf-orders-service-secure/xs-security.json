@@ -1,0 +1,47 @@
+{
+  "xsappname": "orders-service-secure",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.orders.read",
+      "description": "Read orders from the orders service"
+    },
+    {
+      "name": "$XSAPPNAME.orders.create",
+      "description": "Create new orders in the orders service"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "OrdersViewer",
+      "description": "Can read orders",
+      "scope-references": [
+        "$XSAPPNAME.orders.read"
+      ]
+    },
+    {
+      "name": "OrdersAdmin",
+      "description": "Can read and create orders",
+      "scope-references": [
+        "$XSAPPNAME.orders.read",
+        "$XSAPPNAME.orders.create"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "Orders Viewer",
+      "description": "Viewer — read-only access to the orders service",
+      "role-template-references": [
+        "$XSAPPNAME.OrdersViewer"
+      ]
+    },
+    {
+      "name": "Orders Admin",
+      "description": "Admin — full access to the orders service",
+      "role-template-references": [
+        "$XSAPPNAME.OrdersAdmin"
+      ]
+    }
+  ]
+}

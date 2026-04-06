@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders Service (Secured)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+    header {
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    h1 { font-size: 1.3rem; font-weight: 700; color: #60a5fa; }
+    .subtitle { font-size: 0.8rem; color: #7d8590; margin-top: 0.25rem; }
+    .user-badge {
+      display: inline-block;
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      color: #34d399;
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .actions { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    button {
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      background: #161b22;
+      color: #e6edf3;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover { background: #21262d; }
+    button.primary { background: #1f6feb; border-color: #388bfd; color: #fff; }
+    button.primary:hover { background: #388bfd; }
+    .result {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.75rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-all;
+      min-height: 4rem;
+      color: #7d8590;
+    }
+    .result.success { border-color: rgba(52, 211, 153, 0.4); color: #e6edf3; }
+    .result.error   { border-color: rgba(248, 113, 113, 0.4); color: #f87171; }
+    .section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7d8590;
+      margin-bottom: 0.5rem;
+    }
+    .form-row { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    input {
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      background: #0d1117;
+      color: #e6edf3;
+      font-size: 0.82rem;
+      flex: 1;
+      min-width: 8rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Orders Service — Secured</h1>
+    <div class="subtitle">SAP BTP Deep Dive · Section 06 Demo App</div>
+    <div class="user-badge" id="user-badge">Loading user...</div>
+  </header>
+
+  <div class="section-title">Get orders</div>
+  <div class="actions">
+    <button class="primary" onclick="getOrders()">GET /api/orders</button>
+    <button onclick="getHealth()">GET /api/health</button>
+  </div>
+
+  <div class="section-title">Create order</div>
+  <div class="form-row">
+    <input type="text"   id="product"  placeholder="Product (e.g. Avocados)" />
+    <input type="number" id="quantity" placeholder="Quantity (e.g. 100)" />
+    <button class="primary" onclick="createOrder()">POST /api/orders</button>
+  </div>
+
+  <div class="section-title">Response</div>
+  <div class="result" id="result">Click a button above to make an authenticated API call.</div>
+
+  <script>
+    async function call(method, path, body) {
+      const el = document.getElementById('result')
+      el.className = 'result'
+      el.textContent = `${method} ${path} ...`
+      try {
+        const opts = { method, headers: { 'Content-Type': 'application/json' } }
+        if (body) opts.body = JSON.stringify(body)
+        const res  = await fetch(path, opts)
+        const data = await res.json()
+        el.className = 'result ' + (res.ok ? 'success' : 'error')
+        el.textContent = `HTTP ${res.status}\n\n` + JSON.stringify(data, null, 2)
+      } catch (err) {
+        el.className = 'result error'
+        el.textContent = `Error: ${err.message}`
+      }
+    }
+
+    async function getOrders()  { await call('GET', '/api/orders') }
+    async function getHealth()  { await call('GET', '/api/health') }
+    async function createOrder() {
+      const product  = document.getElementById('product').value.trim()
+      const quantity = parseInt(document.getElementById('quantity').value, 10)
+      if (!product || !quantity) return alert('Fill in both product and quantity.')
+      await call('POST', '/api/orders', { product, quantity })
+    }
+
+    // Show the logged-in user from /api/health on load
+    fetch('/api/health')
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('user-badge').textContent = d.user
+          ? `Logged in as ${d.user}`
+          : 'Logged in'
+      })
+      .catch(() => {
+        document.getElementById('user-badge').textContent = 'Could not load user'
+      })
+  </script>
+</body>
+</html>

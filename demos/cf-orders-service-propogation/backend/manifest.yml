@@ -1,0 +1,16 @@
+---
+applications:
+  - name: orders-propogation-backend
+    memory: 256M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node app.js
+
+    # Both bindings are required:
+    #   orders-xsuaa — JWT validation + OBO token exchange source
+    #   freshfoods-hana-2 — HANA Cloud instance; credentials are passed to
+    #                        requestTokenForClient() so XSUAA knows the OBO target
+    services:
+      - orders-xsuaa
+      - freshfoods-hana-2

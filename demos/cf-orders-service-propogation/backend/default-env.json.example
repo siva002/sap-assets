@@ -1,0 +1,46 @@
+{
+  "VCAP_SERVICES": {
+    "xsuaa": [
+      {
+        "name": "orders-xsuaa",
+        "label": "xsuaa",
+        "tags": ["xsuaa"],
+        "credentials": {
+          "clientid": "sb-orders-service-secure!t1234",
+          "clientsecret": "<paste-from-cf-service-key>",
+          "url": "https://<subaccount-subdomain>.authentication.<region>.hana.ondemand.com",
+          "xsappname": "orders-service-secure!t1234",
+          "uaadomain": "authentication.<region>.hana.ondemand.com",
+          "verificationkey": "-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----"
+        }
+      }
+    ],
+    "hana": [
+      {
+        "name": "freshfoods-hana-2",
+        "label": "hana",
+        "tags": ["hana"],
+        "credentials": {
+          "host": "<your-hana-host>.hanacloud.ondemand.com",
+          "port": "443",
+          "uaa": {
+            "clientid": "sb-freshfoods-hana-2!b1234",
+            "clientsecret": "<paste-from-hana-service-key>",
+            "url": "https://<subaccount-subdomain>.authentication.<region>.hana.ondemand.com"
+          }
+        }
+      }
+    ]
+  }
+}
+
+// NOTE: The HANA binding must use an OAuth-based binding (the default for
+// HANA Cloud free tier). This gives the binding a 'uaa' section which
+// requestTokenForClient() reads to know the OBO token target audience.
+//
+// If your HANA binding uses PASSWORD_CREDENTIAL (user + password), the OBO
+// flow will not work — you need the OAuth binding type.
+//
+// To create an OAuth-based HANA service key:
+//   cf create-service-key freshfoods-hana-2 hana-key
+//   cf service-key freshfoods-hana-2 hana-key

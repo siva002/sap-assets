@@ -1,0 +1,17 @@
+---
+applications:
+  - name: orders-propogation-approuter
+    memory: 128M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node node_modules/@sap/approuter/approuter.js
+
+    env:
+      # Replace <BACKEND_URL> with the URL of orders-propogation-backend after its first push.
+      # Run: cf app orders-propogation-backend | grep routes
+      destinations: >
+        [{"name":"orders-backend","url":"https://orders-propogation-backend.cfapps.ap21.hana.ondemand.com","forwardAuthToken":true}]
+
+    services:
+      - orders-xsuaa

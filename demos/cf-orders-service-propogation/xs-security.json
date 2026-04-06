@@ -1,0 +1,47 @@
+{
+  "xsappname": "orders-service-propogation",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.orders.read",
+      "description": "Read orders from the orders service"
+    },
+    {
+      "name": "$XSAPPNAME.orders.create",
+      "description": "Create new orders in the orders service"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "OrdersViewer",
+      "description": "Can read orders",
+      "scope-references": [
+        "$XSAPPNAME.orders.read"
+      ]
+    },
+    {
+      "name": "OrdersAdmin",
+      "description": "Can read and create orders",
+      "scope-references": [
+        "$XSAPPNAME.orders.read",
+        "$XSAPPNAME.orders.create"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "Orders Viewer (Propagation)",
+      "description": "Viewer — read-only access, identity propagated to HANA",
+      "role-template-references": [
+        "$XSAPPNAME.OrdersViewer"
+      ]
+    },
+    {
+      "name": "Orders Admin (Propagation)",
+      "description": "Admin — full access, identity propagated to HANA",
+      "role-template-references": [
+        "$XSAPPNAME.OrdersAdmin"
+      ]
+    }
+  ]
+}

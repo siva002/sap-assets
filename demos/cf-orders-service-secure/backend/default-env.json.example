@@ -1,0 +1,32 @@
+{
+  "VCAP_SERVICES": {
+    "xsuaa": [
+      {
+        "name": "orders-xsuaa",
+        "label": "xsuaa",
+        "tags": ["xsuaa"],
+        "credentials": {
+          "clientid": "sb-orders-service-secure!t1234",
+          "clientsecret": "<paste-from-cf-service-key>",
+          "url": "https://<subaccount-subdomain>.authentication.<region>.hana.ondemand.com",
+          "xsappname": "orders-service-secure!t1234",
+          "uaadomain": "authentication.<region>.hana.ondemand.com",
+          "verificationkey": "-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----"
+        }
+      }
+    ],
+    "hana": [
+      {
+        "name": "orders-db",
+        "label": "hana",
+        "tags": ["hana"],
+        "credentials": {
+          "host": "<your-hana-host>.hanacloud.ondemand.com",
+          "port": "443",
+          "user": "<your-db-user>",
+          "password": "<your-db-password>"
+        }
+      }
+    ]
+  }
+}
