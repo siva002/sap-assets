@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders — Principal Propagation v2</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #0d1117; color: #e2e8f0; min-height: 100vh; padding: 2rem; }
+    h1 { color: #34d399; font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .subtitle { color: rgba(255,255,255,0.45); font-size: 0.85rem; margin-bottom: 2rem; }
+    .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 1.2rem; margin-bottom: 1rem; }
+    .card h2 { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .row { display: flex; gap: 0.6rem; margin-bottom: 0.6rem; }
+    input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 0.5rem 0.75rem; color: #e2e8f0; font-size: 0.9rem; }
+    button { background: #34d399; color: #0d1117; border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; }
+    button:hover { background: #6ee7b7; }
+    button.secondary { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+    button.secondary:hover { background: rgba(255,255,255,0.18); }
+    pre { background: #0a0e14; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1rem; font-size: 0.75rem; overflow-x: auto; white-space: pre-wrap; color: #86efac; min-height: 3rem; }
+    .identity-bar { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.25); border-radius: 8px; padding: 0.7rem 1rem; margin-bottom: 1.5rem; font-size: 0.85rem; }
+    .identity-bar span { color: #34d399; font-weight: 700; }
+    .proof-note { background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 0.6rem 1rem; font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Orders — Principal Propagation v2</h1>
+  <p class="subtitle">App Router → orders-backend → user-data-service &nbsp;·&nbsp; identity travels across every hop</p>
+
+  <div class="identity-bar" id="identity-bar">Loading identity...</div>
+
+  <div class="proof-note">
+    <strong style="color:#60a5fa">How to prove propagation:</strong>
+    Create orders as this user. Then open a private window, log in as a different user, and GET orders.
+    Each user sees only their own data — user-data-service enforces this using the JWT identity, not a query param.
+  </div>
+
+  <div class="card">
+    <h2>POST /api/orders — Create an order</h2>
+    <div class="row">
+      <input id="product"  type="text"   placeholder="Product (e.g. Laptop)" />
+      <input id="quantity" type="number" placeholder="Qty" style="max-width:80px" />
+      <button onclick="createOrder()">Create</button>
+    </div>
+    <pre id="post-result">—</pre>
+  </div>
+
+  <div class="card">
+    <h2>GET /api/orders — My orders (from user-data-service)</h2>
+    <div class="row">
+      <button onclick="getOrders()">Fetch my orders</button>
+      <button class="secondary" onclick="getHealth()">Health check (see propagation)</button>
+    </div>
+    <pre id="get-result">—</pre>
+  </div>
+
+  <script>
+    async function loadIdentity() {
+      try {
+        const r = await fetch('/api/health')
+        const d = await r.json()
+        const bar = document.getElementById('identity-bar')
+        bar.innerHTML = `Logged in as <span>${d.user}</span> &nbsp;·&nbsp; Downstream sees: <span>${d.downstream?.authenticated_as || '?'}</span> &nbsp;·&nbsp; Propagated: <span>${d.downstream?.authenticated_as === d.user ? 'YES ✓' : 'NO ✗'}</span>`
+      } catch(e) {
+        document.getElementById('identity-bar').textContent = 'Could not load identity: ' + e.message
+      }
+    }
+
+    async function getOrders() {
+      const r = await fetch('/api/orders')
+      document.getElementById('get-result').textContent = JSON.stringify(await r.json(), null, 2)
+    }
+
+    async function getHealth() {
+      const r = await fetch('/api/health')
+      document.getElementById('get-result').textContent = JSON.stringify(await r.json(), null, 2)
+    }
+
+    async function createOrder() {
+      const product  = document.getElementById('product').value
+      const quantity = parseInt(document.getElementById('quantity').value)
+      if (!product || !quantity) { alert('Fill in product and quantity'); return }
+      const r = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product, quantity })
+      })
+      document.getElementById('post-result').textContent = JSON.stringify(await r.json(), null, 2)
+      getOrders()
+    }
+
+    loadIdentity()
+  </script>
+</body>
+</html>

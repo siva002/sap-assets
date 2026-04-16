@@ -1,0 +1,15 @@
+---
+applications:
+  - name: orders-prop-v2-backend
+    memory: 256M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node app.js
+    env:
+      # Set this after pushing user-data-service:
+      #   cf set-env orders-prop-v2-backend USER_DATA_SERVICE_URL https://<userdata-url>
+      #   cf restage orders-prop-v2-backend
+      USER_DATA_SERVICE_URL: "https://orders-prop-v2-userdata.cfapps.ap21.hana.ondemand.com/"
+    services:
+      - orders-xsuaa-v2

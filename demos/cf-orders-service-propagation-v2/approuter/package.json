@@ -1,0 +1,11 @@
+{
+  "name": "orders-prop-v2-approuter",
+  "version": "1.0.0",
+  "description": "App Router for propagation v2 demo",
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  },
+  "dependencies": {
+    "@sap/approuter": "^16.5.0"
+  }
+}

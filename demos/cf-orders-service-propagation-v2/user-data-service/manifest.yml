@@ -1,0 +1,10 @@
+---
+applications:
+  - name: orders-prop-v2-userdata
+    memory: 256M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node app.js
+    services:
+      - orders-xsuaa-v2

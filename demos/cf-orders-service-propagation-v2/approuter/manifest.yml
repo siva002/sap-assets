@@ -1,0 +1,18 @@
+---
+applications:
+  - name: orders-prop-v2-approuter
+    memory: 128M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    env:
+      destinations: >
+        [
+          {
+            "name": "orders-backend",
+            "url": "https://orders-prop-v2-backend.cfapps.ap21.hana.ondemand.com",
+            "forwardAuthToken": true
+          }
+        ]
+    services:
+      - orders-xsuaa-v2

@@ -1,0 +1,15 @@
+{
+  "name": "user-data-service",
+  "version": "1.0.0",
+  "description": "Downstream microservice for principal propagation demo — scopes data per authenticated user",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "@sap/xsenv": "^5.2.0",
+    "@sap/xssec": "^4.2.6",
+    "express": "^4.18.2",
+    "passport": "^0.7.0"
+  }
+}

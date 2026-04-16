@@ -1,0 +1,30 @@
+{
+  "xsappname": "orders-propagation-v2",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    { "name": "$XSAPPNAME.orders.read",   "description": "Read orders" },
+    { "name": "$XSAPPNAME.orders.create", "description": "Create orders" }
+  ],
+  "role-templates": [
+    {
+      "name": "OrdersViewer",
+      "description": "Can read orders",
+      "scope-references": [ "$XSAPPNAME.orders.read" ]
+    },
+    {
+      "name": "OrdersAdmin",
+      "description": "Can read and create orders",
+      "scope-references": [ "$XSAPPNAME.orders.read", "$XSAPPNAME.orders.create" ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "Orders Viewer (Propagation v2)",
+      "role-template-references": [ "$XSAPPNAME.OrdersViewer" ]
+    },
+    {
+      "name": "Orders Admin (Propagation v2)",
+      "role-template-references": [ "$XSAPPNAME.OrdersAdmin" ]
+    }
+  ]
+}
