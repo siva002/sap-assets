@@ -1,0 +1,12 @@
+---
+applications:
+  - name: cc-orders-caller
+    memory: 128M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node app.js
+    env:
+      CC_LOCATION_ID: mac
+    services:
+      - connectivity-instance

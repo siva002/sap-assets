@@ -1,0 +1,15 @@
+{
+  "name": "cc-fake-orders",
+  "version": "1.0.0",
+  "description": "Demo app for SAP BTP Deep Dive — Section 07 Chapter 03: Cloud Connector System Mappings. Simulates an on-premise S/4HANA orders endpoint. Run on the same machine as Cloud Connector.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

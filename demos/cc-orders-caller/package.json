@@ -1,0 +1,13 @@
+{
+  "name": "cc-orders-caller",
+  "version": "1.0.0",
+  "description": "Demo app for SAP BTP Deep Dive — Section 07 Chapter 03: Cloud Connector System Mappings. CF app that calls through the CC tunnel to the fake S/4HANA on-premise system.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {}
+}
