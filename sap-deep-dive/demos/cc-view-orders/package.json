@@ -1,0 +1,13 @@
+{
+  "name": "cc-view-orders",
+  "version": "1.0.0",
+  "description": "Demo app for SAP BTP Deep Dive — Section 07 Chapter 10: Connecting BTP to S/4HANA On-Premise. CF app that fetches real Sales Orders from S/4HANA via Cloud Connector tunnel.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {}
+}

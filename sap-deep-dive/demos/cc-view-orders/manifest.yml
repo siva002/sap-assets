@@ -1,0 +1,14 @@
+---
+applications:
+  - name: cc-view-orders
+    memory: 128M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node app.js
+    env:
+      CC_LOCATION_ID: s4hana
+      S4_USER: sh23fi40
+      S4_PASSWORD: xxxxxxxx
+    services:
+      - connectivity-instance
