@@ -1,0 +1,13 @@
+{
+  "name": "s4cloud-bpartners",
+  "version": "1.0.0",
+  "description": "Demo app for SAP BTP Deep Dive — Section 07 Chapter 09: Connecting BTP to S/4HANA Cloud. CF app that reads Business Partners from S/4HANA Cloud Public Edition via the BTP Destination Service.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {}
+}

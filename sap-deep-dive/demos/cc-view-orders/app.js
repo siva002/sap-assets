@@ -140,7 +140,14 @@ const server = http.createServer(async (req, res) => {
     const s4User = process.env.S4_USER
     const s4Pass = process.env.S4_PASSWORD
     if (!s4User || !s4Pass) {
-      return send(res, 503, { error: 'S4_USER and S4_PASSWORD env vars are required' })
+      return send(res, 503, {
+        error: 'S4_USER and S4_PASSWORD are not set',
+        fix: [
+          'cf set-env cc-view-orders S4_USER <your-s4-username>',
+          'cf set-env cc-view-orders S4_PASSWORD <your-s4-password>',
+          'cf restage cc-view-orders',
+        ],
+      })
     }
 
     const locationId    = process.env.CC_LOCATION_ID || ''

@@ -1,0 +1,19 @@
+{
+  "name": "orders-app",
+  "version": "1.0.0",
+  "description": "Sales Order Management — SAP CAP course demo app",
+  "scripts": {
+    "start": "cds-serve",
+    "dev": "cds watch",
+    "build": "cds build --production",
+    "deploy": "cds deploy --to hana"
+  },
+  "dependencies": {
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8"
+  }
+}

@@ -1,0 +1,14 @@
+---
+applications:
+  - name: s4cloud-bpartners
+    memory: 128M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node app.js
+    env:
+      DESTINATION_NAME: s4hana-public-cloud-trial
+      # DESTINATION_NAME is the name of the BTP destination — not a secret, safe here.
+      # The destination itself (URL + credentials) is stored securely in the BTP Destination Service.
+    services:
+      - destination-instance

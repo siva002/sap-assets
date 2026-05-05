@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Orders – Local FLP</title>
+
+  <script>
+    window["sap-ushell-config"] = {
+      defaultRenderer: "fiori2",
+      renderers: {
+        fiori2: {
+          componentData: {
+            config: { search: "hidden", enableSearch: false }
+          }
+        }
+      },
+      services: {
+        ClientSideTargetResolution: {
+          adapter: {
+            config: {
+              inbounds: {
+                "Orders-display": {
+                  semanticObject: "Orders",
+                  action: "display",
+                  title: "Sales Orders",
+                  signature: { additionalParameters: "allowed" },
+                  resolutionResult: {
+                    applicationType: "SAPUI5",
+                    url: "/",
+                    additionalInformation: "SAPUI5.Component=ordersapp.orders"
+                  }
+                }
+              }
+            }
+          }
+        },
+        NavTargetResolution: {
+          adapter: {
+            config: {
+              applications: {
+                "Orders-display": {
+                  additionalInformation: "SAPUI5.Component=ordersapp.orders",
+                  applicationType: "SAPUI5",
+                  url: "/"
+                }
+              }
+            }
+          }
+        },
+        LaunchPage: {
+          adapter: {
+            config: {
+              groups: [
+                {
+                  id: "group_sales",
+                  title: "Sales",
+                  isDefaultGroup: true,
+                  tiles: [
+                    {
+                      id: "tile_orders",
+                      title: "Sales Orders",
+                      size: "1x1",
+                      tileType: "sap.ushell.ui.tile.StaticTile",
+                      properties: {
+                        title: "Sales Orders",
+                        subtitle: "Manage your orders",
+                        icon: "sap-icon://sales-order",
+                        targetURL: "#Orders-display"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <script src="/test-resources/sap/ushell/bootstrap/sandbox.js"
+          id="sap-ushell-bootstrap"></script>
+
+  <script id="sap-ui-bootstrap"
+    src="/resources/sap-ui-core.js"
+    data-sap-ui-libs="sap.m,sap.ui.core,sap.fe.templates,sap.ushell"
+    data-sap-ui-async="true"
+    data-sap-ui-preload="async"
+    data-sap-ui-theme="sap_horizon"
+    data-sap-ui-compatVersion="edge"
+    data-sap-ui-language="en"
+    data-sap-ui-bindingSyntax="complex"
+    data-sap-ui-resourceroots='{"ordersapp.orders": "/"}'
+    data-sap-ui-frameOptions="allow"
+    data-sap-ui-xx-componentPreload="off">
+  </script>
+
+  <script>
+    sap.ui.getCore().attachInit(function () {
+      sap.ushell.Container.createRenderer("fiori2", true).then(function (renderer) {
+        renderer.placeAt("content");
+      });
+    });
+  </script>
+</head>
+<body class="sapUiBody" id="content" style="height:100%"></body>
+</html>

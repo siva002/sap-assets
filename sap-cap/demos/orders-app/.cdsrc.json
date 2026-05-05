@@ -1,0 +1,27 @@
+{
+  "requires": {
+    "db": {
+      "kind": "sqlite",
+      "credentials": { "url": "db.sqlite" }
+    },
+    "auth": {
+      "kind": "mocked",
+      "users": {
+        "sarah.jones@company.com":   { "roles": ["SalesRep"] },
+        "michael.chen@company.com":  { "roles": ["SalesRep"] },
+        "anna.mueller@company.com":  { "roles": ["SalesRep"] },
+        "james.wilson@company.com":  { "roles": ["SalesRep"] },
+        "manager@company.com":       { "roles": ["Manager"]  }
+      }
+    }
+  },
+  "[production]": {
+    "requires": {
+      "db": { "kind": "hana" },
+      "auth": { "kind": "xsuaa" }
+    }
+  },
+  "hana": {
+    "deploy-format": "hdbtable"
+  }
+}

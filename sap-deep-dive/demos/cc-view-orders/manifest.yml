@@ -8,7 +8,9 @@ applications:
     command: node app.js
     env:
       CC_LOCATION_ID: s4hana
-      S4_USER: sh23fi40
-      S4_PASSWORD: xxxxxxxx
+      # S4_USER and S4_PASSWORD must be set after cf push — never commit credentials here:
+      #   cf set-env cc-view-orders S4_USER <your-s4-username>
+      #   cf set-env cc-view-orders S4_PASSWORD <your-s4-password>
+      #   cf restage cc-view-orders
     services:
       - connectivity-instance
