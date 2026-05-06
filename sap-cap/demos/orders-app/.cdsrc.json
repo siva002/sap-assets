@@ -6,12 +6,15 @@
     },
     "auth": {
       "kind": "mocked",
+      "restrict_all_services": true,
       "users": {
+        "*": false,
         "sarah.jones@company.com":   { "roles": ["SalesRep"] },
         "michael.chen@company.com":  { "roles": ["SalesRep"] },
         "anna.mueller@company.com":  { "roles": ["SalesRep"] },
         "james.wilson@company.com":  { "roles": ["SalesRep"] },
-        "manager@company.com":       { "roles": ["Manager"]  }
+        "manager@company.com":       { "roles": ["Manager"]  },
+        "guest@company.com":         { "roles": []           }
       }
     }
   },
