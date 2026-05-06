@@ -30,6 +30,28 @@
                     url: "/",
                     additionalInformation: "SAPUI5.Component=ordersapp"
                   }
+                },
+                "BusinessPartners-display": {
+                  semanticObject: "BusinessPartners",
+                  action: "display",
+                  title: "Business Partners",
+                  signature: { additionalParameters: "allowed" },
+                  resolutionResult: {
+                    applicationType: "SAPUI5",
+                    url: "/",
+                    additionalInformation: "SAPUI5.Component=ordersapp"
+                  }
+                },
+                "Products-display": {
+                  semanticObject: "Products",
+                  action: "display",
+                  title: "Products",
+                  signature: { additionalParameters: "allowed" },
+                  resolutionResult: {
+                    applicationType: "SAPUI5",
+                    url: "/",
+                    additionalInformation: "SAPUI5.Component=ordersapp"
+                  }
                 }
               }
             }
@@ -40,6 +62,16 @@
             config: {
               applications: {
                 "Orders-display": {
+                  additionalInformation: "SAPUI5.Component=ordersapp",
+                  applicationType: "SAPUI5",
+                  url: "/"
+                },
+                "BusinessPartners-display": {
+                  additionalInformation: "SAPUI5.Component=ordersapp",
+                  applicationType: "SAPUI5",
+                  url: "/"
+                },
+                "Products-display": {
                   additionalInformation: "SAPUI5.Component=ordersapp",
                   applicationType: "SAPUI5",
                   url: "/"
@@ -67,6 +99,30 @@
                         subtitle: "Manage your orders",
                         icon: "sap-icon://sales-order",
                         targetURL: "#Orders-display"
+                      }
+                    },
+                    {
+                      id: "tile_bp",
+                      title: "Business Partners",
+                      size: "1x1",
+                      tileType: "sap.ushell.ui.tile.StaticTile",
+                      properties: {
+                        title: "Business Partners",
+                        subtitle: "Customers & vendors",
+                        icon: "sap-icon://customer",
+                        targetURL: "#BusinessPartners-display&/BusinessPartners"
+                      }
+                    },
+                    {
+                      id: "tile_products",
+                      title: "Products",
+                      size: "1x1",
+                      tileType: "sap.ushell.ui.tile.StaticTile",
+                      properties: {
+                        title: "Products",
+                        subtitle: "Product catalogue",
+                        icon: "sap-icon://product",
+                        targetURL: "#Products-display&/Products"
                       }
                     }
                   ]

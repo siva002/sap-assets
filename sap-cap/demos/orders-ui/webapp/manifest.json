@@ -55,10 +55,36 @@
     },
     "routing": {
       "routes": [
-        { "pattern": ":?query:",              "name": "OrdersList",       "target": "OrdersList"       },
-        { "pattern": "Orders({key}):?query:", "name": "OrdersObjectPage", "target": "OrdersObjectPage" }
+        { "pattern": "Orders({key}):?query:",         "name": "OrdersObjectPage",       "target": "OrdersObjectPage"       },
+        { "pattern": "BusinessPartners:?query:",       "name": "BusinessPartnersList",   "target": "BusinessPartnersList"   },
+        { "pattern": "Products:?query:",               "name": "ProductsList",           "target": "ProductsList"           },
+        { "pattern": ":?query:",                       "name": "OrdersList",             "target": "OrdersList"             }
       ],
       "targets": {
+        "BusinessPartnersList": {
+          "type": "Component",
+          "id": "BusinessPartnersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/BusinessPartners",
+              "variantManagement": "None",
+              "initialLoad": "Enabled"
+            }
+          }
+        },
+        "ProductsList": {
+          "type": "Component",
+          "id": "ProductsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Products",
+              "variantManagement": "None",
+              "initialLoad": "Enabled"
+            }
+          }
+        },
         "OrdersList": {
           "type": "Component",
           "id": "OrdersList",
