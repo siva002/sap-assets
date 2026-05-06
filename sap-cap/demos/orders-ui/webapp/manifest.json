@@ -1,7 +1,7 @@
 {
   "_version": "1.59.0",
   "sap.app": {
-    "id": "ordersapp.orders",
+    "id": "ordersapp",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": { "version": "1.0.0" },
@@ -18,6 +18,9 @@
   "sap.ui": {
     "technology": "UI5",
     "fullWidth": false
+  },
+  "sap.fe": {
+    "templates": {}
   },
   "sap.fiori": {
     "registrationIds": [],
@@ -37,7 +40,7 @@
     "models": {
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
-        "settings": { "bundleName": "ordersapp.orders.i18n.i18n" }
+        "settings": { "bundleName": "ordersapp.i18n.i18n" }
       },
       "": {
         "dataSource": "mainService",

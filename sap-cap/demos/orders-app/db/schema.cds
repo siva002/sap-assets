@@ -37,7 +37,7 @@ entity Orders : cuid, managed {
   currency      : String(3)   default 'USD';
   totalAmount   : Decimal(12,2);
   items         : Composition of many OrderItems on items.order = $self;
-  virtual statusCriticality : Integer;
+  statusCriticality : Integer default 0;
 }
 
 entity OrderItems : cuid {

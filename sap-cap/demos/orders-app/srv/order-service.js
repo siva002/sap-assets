@@ -41,9 +41,9 @@ module.exports = class OrderService extends cds.ApplicationService {
     // ── Computed fields ────────────────────────────────────────────────────────
 
     this.after('READ', 'Orders', results => {
-      const criticality = { Draft: 0, Submitted: 2, Approved: 3, Rejected: 1, Fulfilled: 3 }
-      for (const order of [].concat(results)) {
-        order.statusCriticality = criticality[order.status] ?? 0
+      const map = { Draft: 0, Submitted: 2, Approved: 3, Rejected: 1, Fulfilled: 3 }
+      for (const order of [].concat(results ?? [])) {
+        if (order) order.statusCriticality = map[order.status] ?? 0
       }
     })
 
