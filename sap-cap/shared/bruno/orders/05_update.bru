@@ -1,0 +1,27 @@
+meta {
+  name: Update order notes
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/Orders(ID={{draftOrderId}},IsActiveEntity=true)
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: {{salesRepUser}}
+  password: password
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "notes": "Updated via Bruno"
+  }
+}

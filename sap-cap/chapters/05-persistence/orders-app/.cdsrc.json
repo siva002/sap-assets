@@ -1,0 +1,16 @@
+{
+  "requires": {
+    "db": {
+      "kind": "sqlite",
+      "credentials": { "url": "db.sqlite" }
+    }
+  },
+  "[production]": {
+    "requires": {
+      "db": { "kind": "hana" }
+    }
+  },
+  "hana": {
+    "deploy-format": "hdbtable"
+  }
+}

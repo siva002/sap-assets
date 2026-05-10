@@ -1,0 +1,27 @@
+meta {
+  name: Reject order (Manager)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/Orders(ID={{submittedOrderId}},IsActiveEntity=true)/OrderService.reject
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: {{managerUser}}
+  password: password
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "note": "Budget not approved for this quarter. Please resubmit in Q3."
+  }
+}

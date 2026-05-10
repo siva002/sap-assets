@@ -1,0 +1,20 @@
+meta {
+  name: Guest (no roles) → 403
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/Orders
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{guestUser}}
+  password: password
+}
+
+headers {
+  Accept: application/json
+}

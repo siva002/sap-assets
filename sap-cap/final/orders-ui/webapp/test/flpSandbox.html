@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Orders – Local FLP</title>
+
+  <!-- Inject Basic Auth header for every OData call based on the mock-user cookie.
+       This lets us switch users without relying on Chrome's credential cache. -->
+  <script>
+    (function patchXHRAuth() {
+      function getMockUser() {
+        const m = document.cookie.match(/(?:^|;\s*)mock-user=([^;]+)/);
+        return m ? decodeURIComponent(m[1]) : null;
+      }
+      const origOpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function (method, url) {
+        this._mockUrl = typeof url === 'string' ? url : (url && url.toString ? url.toString() : '');
+        origOpen.apply(this, arguments);
+      };
+      const origSetHeader = XMLHttpRequest.prototype.setRequestHeader;
+      XMLHttpRequest.prototype.setRequestHeader = function (name) {
+        if (name && name.toLowerCase() === 'authorization') return; // let our send() own it
+        origSetHeader.apply(this, arguments);
+      };
+      const origSend = XMLHttpRequest.prototype.send;
+      XMLHttpRequest.prototype.send = function () {
+        const user = getMockUser();
+        if (user && this._mockUrl && !this._mockUrl.startsWith('http')) {
+          origSetHeader.call(this, 'Authorization', 'Basic ' + btoa(user + ':password'));
+        }
+        origSend.apply(this, arguments);
+      };
+    })();
+  </script>
+
+  <script>
+    window["sap-ushell-config"] = {
+      defaultRenderer: "fiori2",
+      renderers: {
+        fiori2: {
+          componentData: {
+            config: { search: "hidden", enableSearch: false }
+          }
+        }
+      },
+      services: {
+        ClientSideTargetResolution: {
+          adapter: {
+            config: {
+              inbounds: {
+                "Orders-display": {
+                  semanticObject: "Orders",
+                  action: "display",
+                  title: "Sales Orders",
+                  signature: { additionalParameters: "allowed" },
+                  resolutionResult: {
+                    applicationType: "SAPUI5",
+                    url: "/",
+                    additionalInformation: "SAPUI5.Component=ordersapp"
+                  }
+                },
+                "BusinessPartners-display": {
+                  semanticObject: "BusinessPartners",
+                  action: "display",
+                  title: "Business Partners",
+                  signature: { additionalParameters: "allowed" },
+                  resolutionResult: {
+                    applicationType: "SAPUI5",
+                    url: "/",
+                    additionalInformation: "SAPUI5.Component=ordersapp"
+                  }
+                },
+                "Products-display": {
+                  semanticObject: "Products",
+                  action: "display",
+                  title: "Products",
+                  signature: { additionalParameters: "allowed" },
+                  resolutionResult: {
+                    applicationType: "SAPUI5",
+                    url: "/",
+                    additionalInformation: "SAPUI5.Component=ordersapp"
+                  }
+                }
+              }
+            }
+          }
+        },
+        NavTargetResolution: {
+          adapter: {
+            config: {
+              applications: {
+                "Orders-display": {
+                  additionalInformation: "SAPUI5.Component=ordersapp",
+                  applicationType: "SAPUI5",
+                  url: "/"
+                },
+                "BusinessPartners-display": {
+                  additionalInformation: "SAPUI5.Component=ordersapp",
+                  applicationType: "SAPUI5",
+                  url: "/"
+                },
+                "Products-display": {
+                  additionalInformation: "SAPUI5.Component=ordersapp",
+                  applicationType: "SAPUI5",
+                  url: "/"
+                }
+              }
+            }
+          }
+        },
+        LaunchPage: {
+          adapter: {
+            config: {
+              groups: [
+                {
+                  id: "group_sales",
+                  title: "Sales",
+                  isDefaultGroup: true,
+                  tiles: [
+                    {
+                      id: "tile_orders",
+                      title: "Sales Orders",
+                      size: "1x1",
+                      tileType: "sap.ushell.ui.tile.StaticTile",
+                      properties: {
+                        title: "Sales Orders",
+                        subtitle: "Manage your orders",
+                        icon: "sap-icon://sales-order",
+                        targetURL: "#Orders-display"
+                      }
+                    },
+                    {
+                      id: "tile_bp",
+                      title: "Business Partners",
+                      size: "1x1",
+                      tileType: "sap.ushell.ui.tile.StaticTile",
+                      properties: {
+                        title: "Business Partners",
+                        subtitle: "Customers & vendors",
+                        icon: "sap-icon://customer",
+                        targetURL: "#BusinessPartners-display&/BusinessPartners"
+                      }
+                    },
+                    {
+                      id: "tile_products",
+                      title: "Products",
+                      size: "1x1",
+                      tileType: "sap.ushell.ui.tile.StaticTile",
+                      properties: {
+                        title: "Products",
+                        subtitle: "Product catalogue",
+                        icon: "sap-icon://product",
+                        targetURL: "#Products-display&/Products"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <script src="/test-resources/sap/ushell/bootstrap/sandbox.js"
+          id="sap-ushell-bootstrap"></script>
+
+  <script id="sap-ui-bootstrap"
+    src="/resources/sap-ui-core.js"
+    data-sap-ui-libs="sap.m,sap.ui.core,sap.fe.templates,sap.ushell"
+    data-sap-ui-async="true"
+    data-sap-ui-preload="async"
+    data-sap-ui-theme="sap_horizon"
+    data-sap-ui-compatVersion="edge"
+    data-sap-ui-language="en"
+    data-sap-ui-bindingSyntax="complex"
+    data-sap-ui-resourceroots='{"ordersapp": "/"}'
+    data-sap-ui-frameOptions="allow"
+    data-sap-ui-xx-componentPreload="off">
+  </script>
+
+  <script>
+    sap.ui.getCore().attachInit(function () {
+      sap.ushell.Container.createRenderer("fiori2", true).then(function (renderer) {
+        renderer.placeAt("content");
+      });
+    });
+  </script>
+</head>
+<body class="sapUiBody" id="content" style="height:100%"></body>
+
+<div id="mock-user-bar" style="position:fixed;bottom:0;left:0;right:0;z-index:99999;
+     background:#32363a;color:#fff;font-family:'72',Arial,sans-serif;font-size:13px;
+     display:flex;align-items:center;padding:6px 16px;gap:12px;box-shadow:0 -2px 6px rgba(0,0,0,.3)">
+  <span style="opacity:.7">Mock user:</span>
+  <strong id="mock-user-label">–</strong>
+  <a href="/mock-login" style="margin-left:auto;color:#91c8f6;text-decoration:none;font-weight:bold">
+    Switch User
+  </a>
+</div>
+
+<script>
+  (function () {
+    function getCookie(name) {
+      const m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]+)'));
+      return m ? decodeURIComponent(m[1]) : null;
+    }
+    const user = getCookie('mock-user') || '(none — access denied)';
+    document.getElementById('mock-user-label').textContent = user;
+  })();
+</script>
+</html>

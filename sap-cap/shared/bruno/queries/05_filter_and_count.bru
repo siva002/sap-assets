@@ -1,0 +1,20 @@
+meta {
+  name: Filter with count
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/Orders?$filter=totalAmount gt 10000&$count=true&$select=orderNumber,totalAmount,status
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{salesRepUser}}
+  password: password
+}
+
+headers {
+  Accept: application/json
+}

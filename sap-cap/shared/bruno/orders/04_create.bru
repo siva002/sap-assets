@@ -1,0 +1,29 @@
+meta {
+  name: Create order
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/Orders
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: {{salesRepUser}}
+  password: password
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "buyer_ID": "b1000000-0000-0000-0000-000000000001",
+    "currency": "USD",
+    "notes": "Test order created via Bruno"
+  }
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Filter products by category
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/Products?$filter=category eq 'Software'&$select=name,category,unitPrice,currency
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{salesRepUser}}
+  password: password
+}
+
+headers {
+  Accept: application/json
+}

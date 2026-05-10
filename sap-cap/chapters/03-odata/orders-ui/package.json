@@ -2,7 +2,6 @@
   "name": "orders-ui",
   "version": "1.0.0",
   "private": true,
-  "description": "Sales Orders Fiori Elements UI — connects to the orders-app CAP backend",
   "scripts": {
     "start": "ui5 serve --open test/flpSandbox.html",
     "build": "ui5 build --clean-dest"

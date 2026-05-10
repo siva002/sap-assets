@@ -1,0 +1,20 @@
+meta {
+  name: Submit order (SalesRep)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/Orders(ID={{draftOrderId}},IsActiveEntity=true)/OrderService.submit
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{salesRepUser}}
+  password: password
+}
+
+headers {
+  Accept: application/json
+}

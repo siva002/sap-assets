@@ -1,0 +1,20 @@
+meta {
+  name: Get single order
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/Orders(ID={{draftOrderId}},IsActiveEntity=true)
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{salesRepUser}}
+  password: password
+}
+
+headers {
+  Accept: application/json
+}

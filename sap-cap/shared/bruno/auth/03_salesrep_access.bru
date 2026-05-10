@@ -1,0 +1,20 @@
+meta {
+  name: SalesRep → 200 with data
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/Orders
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{salesRepUser}}
+  password: password
+}
+
+headers {
+  Accept: application/json
+}

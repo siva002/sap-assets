@@ -1,0 +1,114 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "ordersapp",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": { "version": "1.0.0" },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "dataSources": {
+      "mainService": {
+        "uri": "/orders/",
+        "type": "OData",
+        "settings": { "odataVersion": "4.0" }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "fullWidth": false
+  },
+  "sap.fe": {
+    "templates": {}
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": { "compact": true, "cozy": true },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": { "bundleName": "ordersapp.i18n.i18n" }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "routes": [
+        { "pattern": "Orders({key}):?query:",         "name": "OrdersObjectPage",       "target": "OrdersObjectPage"       },
+        { "pattern": "BusinessPartners:?query:",       "name": "BusinessPartnersList",   "target": "BusinessPartnersList"   },
+        { "pattern": "Products:?query:",               "name": "ProductsList",           "target": "ProductsList"           },
+        { "pattern": ":?query:",                       "name": "OrdersList",             "target": "OrdersList"             }
+      ],
+      "targets": {
+        "BusinessPartnersList": {
+          "type": "Component",
+          "id": "BusinessPartnersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/BusinessPartners",
+              "variantManagement": "None",
+              "initialLoad": "Enabled"
+            }
+          }
+        },
+        "ProductsList": {
+          "type": "Component",
+          "id": "ProductsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Products",
+              "variantManagement": "None",
+              "initialLoad": "Enabled"
+            }
+          }
+        },
+        "OrdersList": {
+          "type": "Component",
+          "id": "OrdersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Orders",
+              "variantManagement": "None",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "Orders": { "detail": { "route": "OrdersObjectPage" } }
+              }
+            }
+          }
+        },
+        "OrdersObjectPage": {
+          "type": "Component",
+          "id": "OrdersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": { "contextPath": "/Orders" }
+          }
+        }
+      }
+    }
+  }
+}

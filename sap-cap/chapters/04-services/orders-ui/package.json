@@ -1,0 +1,13 @@
+{
+  "name": "orders-ui",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "ui5 serve --open test/flpSandbox.html",
+    "build": "ui5 build --clean-dest"
+  },
+  "devDependencies": {
+    "@sap/ux-ui5-tooling": "^1",
+    "@ui5/cli": "^4"
+  }
+}

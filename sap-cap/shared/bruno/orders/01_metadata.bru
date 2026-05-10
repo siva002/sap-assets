@@ -1,0 +1,16 @@
+meta {
+  name: Service metadata
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/$metadata
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{salesRepUser}}
+  password: password
+}
