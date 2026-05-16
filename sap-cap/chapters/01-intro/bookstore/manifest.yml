@@ -1,0 +1,7 @@
+applications:
+  - name: bookstore
+    memory: 256M
+    random-route: true
+    command: npm start
+    buildpacks:
+      - nodejs_buildpack
