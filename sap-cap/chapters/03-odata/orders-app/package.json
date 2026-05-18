@@ -4,7 +4,7 @@
   "description": "Sales Order Management — SAP CAP course demo app",
   "scripts": {
     "start": "cds-serve",
-    "dev": "cds watch",
+    "dev": "cds deploy && cds watch",
     "build": "cds build --production",
     "deploy": "cds deploy --to hana"
   },
