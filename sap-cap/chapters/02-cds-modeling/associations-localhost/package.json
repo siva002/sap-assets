@@ -1,0 +1,37 @@
+{
+  "name": "associations-localhost",
+  "version": "1.0.0",
+  "description": "Sales Order Management — CAP with local PostgreSQL",
+  "scripts": {
+    "start": "cds-serve",
+    "dev": "cds watch",
+    "deploy": "cds deploy",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:reset": "docker compose down -v && docker compose up -d",
+    "db:logs": "docker compose logs -f db"
+  },
+  "dependencies": {
+    "@sap/cds": "^8",
+    "@cap-js/postgres": "^1",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "postgres",
+        "credentials": {
+          "host": "localhost",
+          "port": 5432,
+          "database": "orders",
+          "user": "cap",
+          "password": "cap"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+applications:
+  - name: pf-bastion
+    memory: 64M
+    disk_quota: 64M
+    no-route: true
+    health-check-type: process
+    command: sleep infinity
+    buildpacks:
+      - binary_buildpack
+    services:
+      - pf-postgres

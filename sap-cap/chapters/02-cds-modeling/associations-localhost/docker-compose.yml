@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    container_name: cap-postgres
+    environment:
+      POSTGRES_USER: cap
+      POSTGRES_PASSWORD: cap
+      POSTGRES_DB: orders
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:

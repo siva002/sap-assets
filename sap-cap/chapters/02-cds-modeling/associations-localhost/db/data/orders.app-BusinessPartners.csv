@@ -1,0 +1,16 @@
+ID,name,country,city,industry,contactName,contactEmail
+b1000000-0000-0000-0000-000000000001,Acme Corporation,USA,New York,Manufacturing,Robert Langley,r.langley@acme.com
+b1000000-0000-0000-0000-000000000002,Global Tech Solutions,DEU,Berlin,Technology,Petra Hoffmann,p.hoffmann@globaltech.de
+b1000000-0000-0000-0000-000000000003,Nordic Systems AB,SWE,Stockholm,Technology,Erik Lindqvist,e.lindqvist@nordicsys.se
+b1000000-0000-0000-0000-000000000004,Pacific Rim Enterprises,JPN,Tokyo,Trading,Yuki Tanaka,y.tanaka@pacrim.jp
+b1000000-0000-0000-0000-000000000005,Euro Industries GmbH,DEU,Munich,Manufacturing,Klaus Weber,k.weber@euroindustries.de
+b1000000-0000-0000-0000-000000000006,Atlas Trading Co,ARE,Dubai,Trading,Fatima Al-Hassan,f.alhassan@atlas.ae
+b1000000-0000-0000-0000-000000000007,Sunrise Financial Ltd,GBR,London,Finance,Charlotte Davies,c.davies@sunrisefin.co.uk
+b1000000-0000-0000-0000-000000000008,Verde Solutions,BRA,Sao Paulo,Technology,Bruno Carvalho,b.carvalho@verde.com.br
+b1000000-0000-0000-0000-000000000009,TechBridge Inc,USA,Austin,Technology,Marcus Reeves,m.reeves@techbridge.com
+b1000000-0000-0000-0000-000000000010,Continental Supplies AG,CHE,Zurich,Distribution,Ursula Meier,u.meier@continental.ch
+b1000000-0000-0000-0000-000000000011,Meridian Partners,AUS,Sydney,Consulting,Oliver Grant,o.grant@meridian.com.au
+b1000000-0000-0000-0000-000000000012,Apex Manufacturing,IND,Bangalore,Manufacturing,Priya Sharma,p.sharma@apexmfg.in
+b1000000-0000-0000-0000-000000000013,Horizon Logistics,SGP,Singapore,Logistics,Wei Chen,w.chen@horizonlog.sg
+b1000000-0000-0000-0000-000000000014,Sterling Commerce Group,CAN,Toronto,Retail,Diana Park,d.park@sterling.ca
+b1000000-0000-0000-0000-000000000015,Blue Ocean Ventures,NLD,Amsterdam,Finance,Lars van der Berg,l.vanderberg@blueocean.nl
