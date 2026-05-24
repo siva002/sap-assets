@@ -1,15 +1,11 @@
 {
-  "name": "associations-localhost",
+  "name": "associations-btp",
   "version": "1.0.0",
-  "description": "Sales Order Management — CAP with local PostgreSQL",
+  "description": "Sales Order Management — CAP deployed to BTP Cloud Foundry with PostgreSQL",
   "scripts": {
     "start": "cds-serve",
     "dev": "cds watch",
-    "deploy": "cds deploy",
-    "db:up": "docker compose up -d",
-    "db:down": "docker compose down",
-    "db:reset": "docker compose down -v && docker compose up -d",
-    "db:logs": "docker compose logs -f db"
+    "deploy": "cds deploy"
   },
   "dependencies": {
     "@sap/cds": "^8",

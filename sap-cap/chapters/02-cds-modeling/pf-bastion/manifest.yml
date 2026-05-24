@@ -8,4 +8,4 @@ applications:
     buildpacks:
       - binary_buildpack
     services:
-      - pf-postgres
+      - postgres
