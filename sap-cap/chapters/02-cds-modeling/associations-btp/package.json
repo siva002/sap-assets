@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Sales Order Management — CAP deployed to BTP Cloud Foundry with PostgreSQL",
   "scripts": {
-    "start": "cds-serve",
+    "start": "npx cds serve",
     "dev": "cds watch",
     "deploy": "cds deploy"
   },
@@ -18,7 +18,8 @@
   },
   "cds": {
     "requires": {
-      "db": "postgres"
+      "db": "postgres",
+      "auth": "dummy"
     }
   }
 }
