@@ -1,0 +1,38 @@
+meta {
+  name: POST BusinessPartner — no timestamps supplied
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Acme Corp",
+    "country": "USA"
+  }
+}
+
+docs {
+  ## managed demo — step 1
+
+  POST a BusinessPartner with no timestamps or user fields.
+
+  CAP populates all four managed fields automatically:
+  - `createdAt`  — current timestamp
+  - `createdBy`  — "anonymous" (dummy auth)
+  - `modifiedAt` — same as createdAt on first insert
+  - `modifiedBy` — "anonymous" (dummy auth)
+
+  Copy the returned `ID` into the `businessPartnerId`
+  environment variable to use in the PATCH request below.
+}

@@ -1,0 +1,35 @@
+meta {
+  name: POST BusinessPartner — no ID supplied
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Acme Corp",
+    "country": "USA",
+    "city": "New York",
+    "industry": "Manufacturing"
+  }
+}
+
+docs {
+  ## cuid demo — step 1
+  
+  POST a BusinessPartner with no ID field in the body.
+  
+  CAP auto-generates a UUID. Copy the returned `ID` value
+  into the `businessPartnerId` environment variable to use
+  in the GET by ID request below.
+}

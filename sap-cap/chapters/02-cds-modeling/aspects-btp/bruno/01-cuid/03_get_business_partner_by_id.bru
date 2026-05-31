@@ -1,0 +1,24 @@
+meta {
+  name: GET BusinessPartner — by ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/BusinessPartners({{businessPartnerId}})
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  ## cuid demo — step 3
+
+  Fetch a single BusinessPartner by the UUID that CAP generated.
+
+  Set `businessPartnerId` in the Local environment first
+  (copy it from the POST response in step 1).
+}

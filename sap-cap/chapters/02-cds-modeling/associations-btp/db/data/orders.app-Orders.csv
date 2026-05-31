@@ -1,4 +1,4 @@
-ID,orderNumber,buyer_ID,salesRep,status,notes,rejectionNote,currency,totalAmount,createdAt,createdBy,modifiedAt,modifiedBy
+ID,orderNo,customer_ID,salesRep,status,notes,rejectionNote,currency,totalNet,createdAt,createdBy,modifiedAt,modifiedBy
 b3000000-0000-0000-0000-000000000001,ORD-2025-001,b1000000-0000-0000-0000-000000000001,sarah.jones@company.com,Draft,Equipment refresh for Q2 onboarding batch,,USD,2927.00,2025-04-22T09:30:00Z,sarah.jones@company.com,2025-04-22T09:30:00Z,sarah.jones@company.com
 b3000000-0000-0000-0000-000000000002,ORD-2025-002,b1000000-0000-0000-0000-000000000008,michael.chen@company.com,Draft,Annual HANA renewal with support upgrade,,USD,19800.00,2025-04-24T14:00:00Z,michael.chen@company.com,2025-04-24T14:00:00Z,michael.chen@company.com
 b3000000-0000-0000-0000-000000000003,ORD-2025-003,b1000000-0000-0000-0000-000000000003,anna.mueller@company.com,Draft,CAP training programme for development team,,USD,2850.00,2025-04-28T11:15:00Z,anna.mueller@company.com,2025-04-28T11:15:00Z,anna.mueller@company.com

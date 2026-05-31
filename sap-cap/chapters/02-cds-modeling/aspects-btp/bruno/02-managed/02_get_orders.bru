@@ -1,0 +1,24 @@
+meta {
+  name: GET BusinessPartners — see managed fields
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  ## managed demo — step 2
+
+  Retrieve all BusinessPartners and inspect the managed fields:
+  `createdAt`, `createdBy`, `modifiedAt`, `modifiedBy`.
+
+  All four are populated by CAP — we supplied none of them.
+}

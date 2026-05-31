@@ -20,6 +20,7 @@ entity Products : cuid {
 }
 
 type OrderStatus : String enum {
+  New       = 'NEW';
   Draft     = 'Draft';
   Submitted = 'Submitted';
   Approved  = 'Approved';
@@ -28,14 +29,14 @@ type OrderStatus : String enum {
 }
 
 entity Orders : cuid, managed {
-  orderNumber   : String(20);
-  buyer         : Association to BusinessPartners;
+  orderNo       : String(20);
+  customer      : Association to BusinessPartners;
   salesRep      : String(100);
   status        : OrderStatus default 'Draft';
   notes         : String(500);
   rejectionNote : String(500);
   currency      : String(3)   default 'USD';
-  totalAmount   : Decimal(12,2);
+  totalNet      : Decimal(12,2);
   items         : Composition of many OrderItems on items.order = $self;
   statusCriticality : Integer default 0;
 }

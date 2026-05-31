@@ -29,7 +29,7 @@ type OrderStatus : String enum {
 
 entity Orders : cuid, managed {
   orderNumber   : String(20);
-  buyer         : Association to BusinessPartners;
+  customer         : Association to BusinessPartners;
   salesRep      : String(100);
   status        : OrderStatus default 'Draft';
   notes         : String(500);

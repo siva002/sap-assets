@@ -1,0 +1,37 @@
+meta {
+  name: PATCH BusinessPartner — modifiedAt updates
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners({{businessPartnerId}})
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "city": "San Francisco"
+  }
+}
+
+docs {
+  ## managed demo — step 3
+
+  PATCH the BusinessPartner with a field change.
+
+  After this, run GET (step 2) and compare:
+  - `createdAt`  — unchanged (set once on INSERT)
+  - `createdBy`  — unchanged
+  - `modifiedAt` — updated to now
+  - `modifiedBy` — updated to "anonymous"
+
+  Set `businessPartnerId` in the Local environment first
+  (copy it from the POST response in step 1).
+}

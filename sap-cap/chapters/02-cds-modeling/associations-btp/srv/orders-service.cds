@@ -9,11 +9,11 @@ service OrdersService {
 
   entity OrderSummary as projection on my.Orders {
     ID,
-    orderNumber,
+    orderNo,
     status,
-    totalAmount,
-    buyer.name    as buyerName,
-    buyer.city    as buyerCity,
-    buyer.country as buyerCountry
+    totalNet,
+    customer.name    as customerName,
+    customer.city    as customerCity,
+    customer.country as customerCountry
   };
 }
