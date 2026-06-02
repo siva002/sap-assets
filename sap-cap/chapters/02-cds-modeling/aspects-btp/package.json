@@ -4,7 +4,7 @@
   "description": "Sales Order Management — CAP with aspects and reuse types, deployed to BTP Cloud Foundry with PostgreSQL",
   "scripts": {
     "start": "npx cds serve",
-    "dev": "cds deploy --to sqlite && cds watch",
+    "dev": "cds watch",
     "deploy": "cds deploy"
   },
   "dependencies": {
@@ -23,7 +23,8 @@
     },
     "[development]": {
       "requires": {
-        "db": "sqlite"
+        "db": "postgres",
+        "auth": "dummy"
       }
     }
   }

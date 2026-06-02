@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: {{baseUrl}}/BusinessPartners({{businessPartnerId}})
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners({{businessPartnerId}})
   body: none
   auth: none
+}
+
+params:query {
+  : 
 }
 
 headers {
@@ -16,9 +20,9 @@ headers {
 
 docs {
   ## cuid demo — step 3
-
+  
   Fetch a single BusinessPartner by the UUID that CAP generated.
-
+  
   Set `businessPartnerId` in the Local environment first
   (copy it from the POST response in step 1).
 }
