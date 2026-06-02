@@ -1,0 +1,38 @@
+meta {
+  name: POST BusinessPartner — name gets uppercased
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Acme Corp",
+    "city": "New York",
+    "country": "USA",
+    "industry": "Manufacturing"
+  }
+}
+
+docs {
+  ## before handler demo — step 1
+
+  POST a BusinessPartner with a mixed-case name.
+
+  The before handler uppercases `name` in `req.data`
+  before CAP saves it. The response should show
+  `"name": "ACME CORP"` — not what the client sent.
+
+  Watch the terminal: `[before] Saving: ACME CORP`
+  appears before the 201 response arrives.
+}

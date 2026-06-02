@@ -1,0 +1,38 @@
+meta {
+  name: POST BusinessPartner — after handler logs the saved UUID
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Acme Corp",
+    "city": "New York",
+    "country": "USA",
+    "industry": "Manufacturing"
+  }
+}
+
+docs {
+  ## after handler demo — step 1
+
+  POST a BusinessPartner and watch the terminal.
+
+  The after CREATE handler fires once CAP has committed
+  the record to the database. It logs the generated UUID
+  from `result.ID` — a UUID that didn't exist at request
+  time, only after the write succeeded.
+
+  Terminal output: `[after] Partner saved: <uuid> Acme Corp`
+}

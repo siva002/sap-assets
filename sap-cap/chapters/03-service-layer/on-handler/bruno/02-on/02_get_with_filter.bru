@@ -1,0 +1,32 @@
+meta {
+  name: GET BusinessPartners — $filter ignored by on handler
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners?$filter=industry eq 'Finance'
+  body: none
+  auth: none
+}
+
+params:query {
+  $filter: industry eq 'Finance'
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  ## on handler demo — step 2
+
+  GET with a $filter asking for Finance partners.
+
+  Expected: empty result — the on handler's WHERE overrides
+  the OData $filter. The client asked for Finance;
+  the handler only returns Manufacturing.
+
+  This demonstrates that the on handler has full control
+  over what the client receives.
+}

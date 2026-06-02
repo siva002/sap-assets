@@ -1,0 +1,36 @@
+meta {
+  name: POST BusinessPartner — missing name (rejected)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "city": "London",
+    "country": "GBR",
+    "industry": "Finance"
+  }
+}
+
+docs {
+  ## before handler demo — step 3 (optional)
+
+  POST without a name field.
+
+  If you add req.reject() validation to the handler,
+  this request should return 400 with your error message
+  instead of 201.
+
+  Useful to demonstrate the req.reject() pattern from the slides.
+}

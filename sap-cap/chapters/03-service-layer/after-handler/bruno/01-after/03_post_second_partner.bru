@@ -1,0 +1,35 @@
+meta {
+  name: POST second BusinessPartner — verify handler fires each time
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Global Industries",
+    "city": "Berlin",
+    "country": "DEU",
+    "industry": "Logistics"
+  }
+}
+
+docs {
+  ## after handler demo — step 3
+
+  POST a second partner.
+
+  The after handler fires again — a different UUID appears in
+  the terminal log. Confirms the handler is registered once
+  in init() but fires on every CREATE request.
+}

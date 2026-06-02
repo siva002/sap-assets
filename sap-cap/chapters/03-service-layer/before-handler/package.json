@@ -1,0 +1,31 @@
+{
+  "name": "before-handler",
+  "version": "1.0.0",
+  "description": "CAP service layer — before handler demo",
+  "scripts": {
+    "start": "npx cds serve",
+    "dev": "cds watch",
+    "deploy": "cds deploy"
+  },
+  "dependencies": {
+    "@sap/cds": "^8",
+    "@cap-js/postgres": "^1",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8"
+  },
+  "cds": {
+    "requires": {
+      "db": "postgres",
+      "auth": "dummy"
+    },
+    "[development]": {
+      "requires": {
+        "db": "postgres",
+        "auth": "dummy"
+      }
+    }
+  }
+}

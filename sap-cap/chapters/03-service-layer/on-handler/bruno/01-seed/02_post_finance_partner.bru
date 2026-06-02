@@ -1,0 +1,33 @@
+meta {
+  name: POST Finance partner (will be hidden by on handler)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Capital Partners",
+    "city": "London",
+    "country": "GBR",
+    "industry": "Finance"
+  }
+}
+
+docs {
+  ## on handler demo — seed step 2
+
+  POST a Finance partner. This record will be saved
+  to the database — but the on handler will hide it
+  from all GET requests by filtering to Manufacturing only.
+}

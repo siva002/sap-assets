@@ -1,0 +1,27 @@
+meta {
+  name: GET BusinessPartners — on handler filters to Manufacturing only
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  ## on handler demo — step 1
+
+  GET all BusinessPartners — no $filter in the URL.
+
+  Expected: only Manufacturing partners are returned.
+  The Finance partner ("Capital Partners") is in the database
+  but the on handler's WHERE clause hides it from every READ.
+
+  This shows the on handler replacing CAP's default SELECT entirely.
+}

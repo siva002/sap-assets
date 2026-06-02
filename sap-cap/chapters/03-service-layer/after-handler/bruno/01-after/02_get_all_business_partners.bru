@@ -1,0 +1,25 @@
+meta {
+  name: GET BusinessPartners — unaffected by after handler
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  ## after handler demo — step 2
+
+  GET all BusinessPartners.
+
+  The after handler only intercepts CREATE — READ is unaffected.
+  This confirms the after handler adds a side effect to writes
+  without changing read behaviour.
+}

@@ -1,0 +1,25 @@
+meta {
+  name: GET BusinessPartners — verify uppercase persisted
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  ## before handler demo — step 2
+
+  Fetch all BusinessPartners.
+
+  Verify that the name stored in the database is "ACME CORP"
+  (uppercase) — confirming the before handler mutated req.data
+  before CAP wrote to postgres.
+}

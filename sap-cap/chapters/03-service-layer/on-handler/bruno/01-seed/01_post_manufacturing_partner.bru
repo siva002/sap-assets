@@ -1,0 +1,33 @@
+meta {
+  name: POST Manufacturing partner
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Acme Corp",
+    "city": "New York",
+    "country": "USA",
+    "industry": "Manufacturing"
+  }
+}
+
+docs {
+  ## on handler demo — seed step 1
+
+  POST a Manufacturing partner. The on handler only returns
+  Manufacturing partners on READ — so we need at least one
+  to see in the filtered response.
+}
