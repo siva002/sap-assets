@@ -1,0 +1,44 @@
+meta {
+  name: Seed — POST a partner with country 'de'
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: basic
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+auth:basic {
+  username: alice
+  password: alice
+}
+
+body:json {
+  {
+    "name": "SAP SE",
+    "city": "Walldorf",
+    "country": "de",
+    "industry": "ERP"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## req.query demo — seed step 2
+  
+  Seed a partner with country='de'. alice (admin) bypasses the locale filter,
+  so this always saves regardless of country.
+  
+  After steps 1 and 2 the database has partners in both 'en' and 'de'.
+  Now run steps 3 and 4 to see the injection in action.
+}

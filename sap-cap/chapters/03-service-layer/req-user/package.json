@@ -1,0 +1,17 @@
+{
+  "name": "req-user",
+  "version": "1.0.0",
+  "description": "CAP service layer — req.user demo (identity, locale, role checks)",
+  "scripts": {
+    "start": "npx cds serve",
+    "dev": "cds watch"
+  },
+  "dependencies": {
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/postgres": "^1",
+    "@sap/cds-dk": "^8"
+  }
+}

@@ -1,0 +1,44 @@
+meta {
+  name: GET as bob (no roles, locale en) — only 'en' partners returned
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: none
+  auth: basic
+}
+
+headers {
+  Accept: application/json
+  Accept-Language: en
+}
+
+auth:basic {
+  username: bob
+  password: bob
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## req.query demo — step 4
+  
+  bob has no roles and his locale is 'en' (set in package.json and via Accept-Language).
+  The locale filter IS injected for him.
+  
+  The before handler:
+  1. Logs req.query.SELECT.where — undefined (bob sent no $filter)
+  2. req.user.is('admin') is false — the if block runs
+  3. req.query.where({ country: req.user.locale }) injects country='en'
+  4. Logs after — shows the injected CQL predicate
+  5. CAP runs the modified query
+  
+  Expected: only partners with country='en' returned. SAP SE (country='de') is hidden.
+  
+  Watch the terminal: 'before' is undefined, 'after' shows the injected condition.
+  Neither caller sent a $filter — the difference is entirely server-side.
+}

@@ -1,0 +1,34 @@
+meta {
+  name: GET with $filter — country eq 'de'
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners?$filter=country eq 'de'
+  body: none
+  auth: basic
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:basic {
+  username: alice
+  password: alice
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## $filter
+
+  Filters results to rows where country equals 'de'.
+  CAP translates this into a WHERE clause in req.query.SELECT.where.
+
+  Run as alice (admin) so the locale injection is skipped and only
+  the client-supplied filter applies.
+}

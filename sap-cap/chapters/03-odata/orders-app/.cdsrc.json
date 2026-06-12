@@ -1,8 +1,0 @@
-{
-  "requires": {
-    "db": {
-      "kind": "sqlite",
-      "url": "db.sqlite"
-    }
-  }
-}

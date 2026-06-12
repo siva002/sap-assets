@@ -1,0 +1,45 @@
+meta {
+  name: POST Tech partner as bob (no roles) — 201 allowed
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: bob
+  password: bob
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Shopify",
+    "city": "Ottawa",
+    "country": "CAN",
+    "industry": "Tech"
+  }
+}
+
+docs {
+  ## req.user demo — step 3
+
+  Bob has no roles but the industry is not Defense — the role check doesn't apply.
+
+  The before handler:
+  1. Logs req.user.id ('bob')
+  2. Checks req.user.is('approver') — false for bob
+  3. req.data.industry is 'Tech' — condition not met, no reject
+  4. Stamps req.data.createdBy = 'bob'
+
+  Expected: 201 Created with `createdBy: "bob"`.
+  The role restriction is data-driven — only Defense requires the approver role.
+}

@@ -1,0 +1,18 @@
+{
+  "name": "req-query",
+  "version": "1.0.0",
+  "description": "CAP service layer — req.query demo (inject server-side WHERE conditions)",
+  "scripts": {
+    "start": "npx cds serve",
+    "dev": "cds watch"
+  },
+  "dependencies": {
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/postgres": "^1",
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8"
+  }
+}

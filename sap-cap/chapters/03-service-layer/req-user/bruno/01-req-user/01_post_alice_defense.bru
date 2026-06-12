@@ -1,0 +1,45 @@
+meta {
+  name: POST Defense partner as alice (approver) — 201 + createdBy stamped
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: alice
+  password: alice
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Lockheed",
+    "city": "Fort Worth",
+    "country": "USA",
+    "industry": "Defense"
+  }
+}
+
+docs {
+  ## req.user demo — step 1
+
+  Alice has the `approver` role. She can create Defense industry partners.
+
+  The before handler:
+  1. Logs req.user.id ('alice') and req.user.locale
+  2. Checks req.user.is('approver') — passes for alice
+  3. Stamps req.data.createdBy = 'alice'
+
+  Expected: 201 Created with `createdBy: "alice"` in the response.
+
+  Watch the terminal: `[req.user] id: alice` appears before the 201.
+}

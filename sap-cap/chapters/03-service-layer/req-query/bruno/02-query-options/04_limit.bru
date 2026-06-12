@@ -1,0 +1,33 @@
+meta {
+  name: GET with $top — first 2 results
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners?$top=2
+  body: none
+  auth: basic
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:basic {
+  username: alice
+  password: alice
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## $top (limit)
+
+  Returns at most 2 results — the OData equivalent of SQL LIMIT.
+  CAP maps this to req.query.SELECT.limit.rows.
+
+  Pair with $skip to paginate: $top=2&$skip=2 returns the next page.
+}

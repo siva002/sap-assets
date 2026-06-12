@@ -1,0 +1,34 @@
+meta {
+  name: GET with $orderby — name asc
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners?$orderby=name asc
+  body: none
+  auth: basic
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:basic {
+  username: alice
+  password: alice
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## $orderby
+
+  Sorts results by 'name' in ascending order.
+  CAP maps this to req.query.SELECT.orderBy.
+
+  Change 'asc' to 'desc' to reverse the order.
+  Multiple columns: $orderby=country asc,name desc
+}

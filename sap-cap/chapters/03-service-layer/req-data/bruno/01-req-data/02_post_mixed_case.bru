@@ -1,0 +1,48 @@
+meta {
+  name: POST mixed-case payload — 201 normalised
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "acme corp",
+    "city": "New York",
+    "country": "us",
+    "industry": "Tech"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## req.data demo — step 2
+  
+  Send a POST with valid but mixed-case name and country.
+  
+  The before handler:
+  1. Logs the received payload: name='acme corp', country='us'
+  2. Validation passes — both fields present
+  3. Normalises: name → 'ACME CORP', country → 'US'
+  4. Injects: createdBy = req.user.id ('anonymous' — dummy auth)
+  5. Logs the writing payload — shows the transformed values
+  6. CAP writes the normalised record
+  
+  Expected: 201 Created with `name: "ACME CORP"` and `country: "US"`.
+  The client sent lowercase — the database stores uppercase.
+  
+  Watch the terminal for both log lines to see the before/after transformation.
+}

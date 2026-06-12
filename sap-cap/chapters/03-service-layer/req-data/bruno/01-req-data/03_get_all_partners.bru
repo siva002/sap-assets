@@ -1,0 +1,32 @@
+meta {
+  name: GET all partners — see normalised data
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## req.data demo — step 3
+  
+  Read all partners to confirm the database only contains normalised data.
+  
+  After step 2:
+  - name is 'ACME CORP' — not the 'acme corp' the client sent
+  - country is 'US' — not 'us'
+  
+  The client sent mixed-case values. The database received canonical form.
+  That gap is what req.data mutation gives you.
+}

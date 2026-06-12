@@ -1,0 +1,19 @@
+{
+  "name": "req-data",
+  "version": "1.0.0",
+  "description": "CAP service layer — req.data demo (validate, normalise, inject)",
+  "scripts": {
+    "start": "npx cds serve",
+    "dev": "cds watch",
+    "dev:debug": "NODE_OPTIONS='--inspect=0' cds watch"
+  },
+  "dependencies": {
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+        "@cap-js/postgres": "^1",
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8"
+  }
+}

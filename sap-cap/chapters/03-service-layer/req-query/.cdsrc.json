@@ -1,0 +1,28 @@
+{
+  "requires": {
+    "db": {
+      "kind": "postgres",
+      "credentials": {
+        "host": "127.0.0.1",
+        "port": 5432,
+        "database": "orders",
+        "user": "cap",
+        "password": "cap"
+      }
+    },
+    "auth": {
+      "kind": "mocked",
+      "users": {
+        "alice": {
+          "password": "alice",
+          "roles": ["approver"]
+        },
+        "bob": {
+          "password": "bob",
+          "roles": [],
+          "locale": "en"
+        }
+      }
+    }
+  }
+}

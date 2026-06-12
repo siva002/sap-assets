@@ -1,0 +1,27 @@
+meta {
+  name: GET all partners — see createdBy values
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  ## req.user demo — step 4
+
+  Read all partners to see the `createdBy` field stamped by the server.
+
+  After running steps 1 and 3:
+  - Lockheed → createdBy: "alice"
+  - Shopify   → createdBy: "bob"
+
+  The client never sent `createdBy` — the server stamped it from req.user.id.
+}

@@ -1,0 +1,42 @@
+meta {
+  name: POST missing name — 400 Bad Request
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "city": "New York",
+    "country": "us",
+    "industry": "Tech"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## req.data demo — step 1
+  
+  Send a POST without a `name` field.
+  
+  The before handler:
+  1. Logs the received payload — no name property
+  2. Checks !req.data.name — true, name is absent
+  3. req.reject(400, 'name and country are required')
+  4. The second log never fires — nothing is written
+  
+  Expected: 400 Bad Request — "name and country are required"
+}

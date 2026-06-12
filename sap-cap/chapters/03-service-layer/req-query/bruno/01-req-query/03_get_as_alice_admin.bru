@@ -1,0 +1,40 @@
+meta {
+  name: GET as alice (admin) — all partners returned
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: none
+  auth: basic
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:basic {
+  username: alice
+  password: alice
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## req.query demo — step 3
+  
+  alice has the admin role. The locale filter is NOT injected for her.
+  
+  The before handler:
+  1. Logs req.query.SELECT.where — undefined (no $filter sent)
+  2. req.user.is('admin') is true — the if block does not run
+  3. Logs after — still undefined
+  4. CAP runs the unmodified query
+  
+  Expected: all partners returned — both 'en' and 'de' records.
+  
+  Watch the terminal: both 'before' and 'after' log undefined.
+}

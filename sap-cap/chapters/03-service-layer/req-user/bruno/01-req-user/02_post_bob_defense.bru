@@ -1,0 +1,44 @@
+meta {
+  name: POST Defense partner as bob (no roles) — 403 Forbidden
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: bob
+  password: bob
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "Raytheon",
+    "city": "Arlington",
+    "country": "USA",
+    "industry": "Defense"
+  }
+}
+
+docs {
+  ## req.user demo — step 2
+
+  Bob has no roles. Attempting to create a Defense industry partner fails.
+
+  The before handler:
+  1. Logs req.user.id ('bob')
+  2. Checks req.user.is('approver') — fails for bob
+  3. req.data.industry is 'Defense' — condition met
+  4. req.reject(403, ...) — nothing is written
+
+  Expected: 403 Forbidden — "Role 'approver' required for Defense industry"
+}

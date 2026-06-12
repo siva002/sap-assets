@@ -1,0 +1,34 @@
+meta {
+  name: GET with $select — only name and country
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners?$select=name,country
+  body: none
+  auth: basic
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:basic {
+  username: alice
+  password: alice
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## $select
+
+  Restricts the response to the listed properties.
+  Only 'name' and 'country' are returned — all other fields are omitted.
+
+  CAP maps this to a CQL SELECT with the matching column list.
+  Inspect req.query.SELECT.columns in a before handler to see the effect.
+}
