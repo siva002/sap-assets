@@ -1,0 +1,38 @@
+meta {
+  name: POST missing customerId — 400 targeted error
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "quantity": 10,
+    "region": "EMEA"
+  }
+}
+
+docs {
+  ## req.error demo — single targeted error
+
+  Send a POST with quantity and region present but customerId missing.
+
+  Only the first check fires:
+  1. !customerId → req.error(400, 'Customer is required', 'customerId')
+  2. quantity passes (10 > 0)
+  3. region passes
+
+  Expected: 400 Bad Request
+  Response body: error.details with one entry — target: 'customerId'
+  The other two fields are valid so their checks pass silently.
+}

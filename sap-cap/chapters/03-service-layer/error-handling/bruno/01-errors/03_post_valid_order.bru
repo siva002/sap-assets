@@ -1,0 +1,35 @@
+meta {
+  name: POST valid order — 201 Created
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "customerId": "CUST-001",
+    "quantity": 50,
+    "region": "EMEA"
+  }
+}
+
+docs {
+  ## req.error demo — all checks pass
+
+  Send a fully valid POST. All three checks pass — no req.error calls are made.
+  CAP writes the record normally.
+
+  Expected: 201 Created
+  Response body: the created order with its generated ID.
+  No SAP-Messages header — no warnings on a quantity of 50.
+}

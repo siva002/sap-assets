@@ -1,0 +1,31 @@
+meta {
+  name: GET all orders — 200 with SAP-Messages warning
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/odata/v4/orders/Orders
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  ## req.warn demo — step 2: trigger the warning
+
+  GET all orders. The after READ handler loops over the result set.
+  For every order where quantity > 900 it calls req.warn().
+
+  Expected: 200 OK
+  Response body: the normal orders array — data is not blocked.
+  Response headers: SAP-Messages header containing a JSON array with the warning message.
+
+  In Bruno, open the response Headers tab and look for SAP-Messages.
+  The warning text includes the order ID and quantity — one entry per high-quantity order.
+
+  This is how Fiori Elements surfaces toast notifications without interrupting the user.
+}

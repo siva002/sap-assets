@@ -1,0 +1,38 @@
+meta {
+  name: POST all fields missing — 400 three errors
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {}
+}
+
+docs {
+  ## req.error demo — all fields missing
+
+  Send a POST with an empty body.
+
+  The before handler runs all three checks independently:
+  1. !customerId → req.error(400, 'Customer is required', 'customerId')
+  2. quantity == null → req.error(400, 'Quantity must be a positive number', 'quantity')
+  3. !region → req.error(400, 'Region is required', 'region')
+
+  The handler runs to completion — no early exit.
+  CAP aggregates all three errors and returns them as a single batch error response.
+
+  Expected: 400 Bad Request
+  Response body: error.details array with three entries, each with a target field
+  pointing to the specific field that failed.
+}
