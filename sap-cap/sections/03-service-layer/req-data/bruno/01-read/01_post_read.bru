@@ -1,0 +1,51 @@
+meta {
+  name: POST partner — watch the three console.logs
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "acme corp",
+    "country": "us",
+    "industry": "Tech"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## Slide 4 — req.data — read, validate, mutate (Step 1: Read)
+
+  Handler at this point (bare — just reading):
+
+  ```js
+  this.before('CREATE', 'BusinessPartners', req => {
+    console.log(req.data.name)     // 'acme corp'
+    console.log(req.data.country)  // 'us'
+    console.log(req.data.region)   // undefined (not sent)
+  })
+  ```
+
+  No validation, no mutation yet — this only reads. Watch the terminal:
+  - `req.data.name` logs `'acme corp'`
+  - `req.data.country` logs `'us'`
+  - `req.data.region` logs `undefined` — it was never sent, and `region` isn't
+    even a column on this entity; the point is just that an absent field reads
+    as `undefined`, not `null` or an empty string.
+
+  Expected: 201 Created. Nothing is rejected or transformed yet — that's next.
+}

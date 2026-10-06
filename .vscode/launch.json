@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug req-data (cds watch)",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["cds", "watch"],
+      "cwd": "${workspaceFolder}/sap-cap/sections/03-service-layer/req-data",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "restart": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+meta {
+  name: POST valid mixed-case payload — 201 normalised
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "acme corp",
+    "city": "New York",
+    "country": "us",
+    "industry": "Tech"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## Slide 8 — Pattern (Step 2: Normalise then inject) — the full handler
+
+  ```js
+  this.before('CREATE', 'BusinessPartners', req => {
+    if (!req.data.name || !req.data.country)
+      req.reject(400, 'name and country are required')
+
+    req.data.name    = req.data.name.trim().toUpperCase()
+    req.data.country = req.data.country.trim().toUpperCase()
+    req.data.createdBy = req.user.id
+    req.data.createdAt = new Date().toISOString()
+  })
+  ```
+
+  Both fields present, both valid — validation passes, normalisation and
+  injection run. Expected: 201 Created with `name: "ACME CORP"`,
+  `country: "US"`, `createdBy` set from the session, and `createdAt` set to
+  the current server timestamp — none of it from what the client sent.
+}

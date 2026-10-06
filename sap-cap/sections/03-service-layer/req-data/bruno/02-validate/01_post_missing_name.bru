@@ -1,0 +1,47 @@
+meta {
+  name: POST missing name — 400 "name is required"
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/BusinessPartners
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "country": "us",
+    "industry": "Tech"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004
+}
+
+docs {
+  ## Slide 5 — req.data — read, validate, mutate (Step 2: Validate)
+
+  Handler at this point (isolated — just the two reject checks):
+
+  ```js
+  this.before('CREATE', 'BusinessPartners', req => {
+    if (!req.data.name)
+      req.reject(400, 'name is required')
+    if (!req.data.country)
+      req.reject(400, 'country is required')
+  })
+  ```
+
+  `name` is missing here, `country` is present. `req.reject` throws
+  immediately on the first failing check, so only the first message fires.
+
+  Expected: 400 Bad Request — "name is required". Nothing is written.
+}

@@ -7,4 +7,5 @@ entity BusinessPartners : cuid {
   country   : String(3);
   industry  : String(50);
   createdBy : String(100);
+  createdAt : Timestamp;
 }

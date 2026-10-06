@@ -15,7 +15,7 @@
       "users": {
         "alice": {
           "password": "alice",
-          "roles": ["approver"]
+          "roles": ["admin"]
         },
         "bob": {
           "password": "bob",
