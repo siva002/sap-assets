@@ -1,0 +1,39 @@
+meta {
+  name: POST valid quantity — 201 Created
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "customerId": "CUST-001",
+    "quantity": 25,
+    "region": "EMEA"
+  }
+}
+
+docs {
+  ## req.reject demo — the contrast case
+
+  Same handler, a positive quantity this time.
+
+  req.data.quantity <= 0 is false, so req.reject never fires — the handler
+  falls through and CAP writes the record normally.
+
+  Expected: 201 Created, with a generated ID in the response.
+
+  Run this right after the negative-quantity request to show the same
+  endpoint, same handler, two completely different outcomes depending on
+  one condition.
+}

@@ -1,0 +1,40 @@
+meta {
+  name: POST negative quantity — 400 immediate reject
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "customerId": "CUST-001",
+    "quantity": -5,
+    "region": "EMEA"
+  }
+}
+
+docs {
+  ## req.reject demo — hard stop on invalid data
+
+  Send a POST with quantity -5.
+
+  The before handler:
+  1. Checks req.data.quantity <= 0 — true, -5 is negative
+  2. Calls req.reject(400, 'Quantity must be a positive number')
+  3. The handler stops immediately — no code after req.reject runs
+  4. CAP rolls back the transaction — nothing is written
+
+  Expected: 400 Bad Request — "Quantity must be a positive number"
+  Run the next request (valid order) to confirm nothing was written for this one —
+  no row with quantity -5 will ever show up in a GET.
+}

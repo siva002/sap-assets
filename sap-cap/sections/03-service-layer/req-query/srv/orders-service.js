@@ -4,7 +4,7 @@ module.exports = class OrdersService extends cds.ApplicationService {
   async init() {
 
     this.before('READ', 'BusinessPartners', req => {
-      console.log('[req.query] before:', req.query.SELECT.columns)
+        const { limit, orderBy } = req.query.SELECT
     })
 
     return super.init()

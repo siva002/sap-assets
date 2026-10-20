@@ -3,23 +3,26 @@ const cds = require('@sap/cds')
 module.exports = class OrdersService extends cds.ApplicationService {
   async init() {
 
-    // Validate all required fields before writing — collect every failure at once
-    this.before('CREATE', 'Orders', req => {
-      const { customerId, quantity, region } = req.data
+    this.before('CREATE', 'Orders', (req) => {
+      if (!req.data.customerId)
 
-      if (!customerId)
-        req.error(400, 'Customer is required', 'customerId')
-      if (quantity == null || quantity <= 0)
-        req.error(400, 'Quantity must be a positive number', 'quantity')
-      if (!region)
-        req.error(400, 'Region is required', 'region')
+        req.error(400, 'Customer is required')
+
+      if (!req.data.region)
+
+        req.error(400, 'Region is required')
+
+
+      if (req.data.quantity > 900)
+        req.warn(`Order is nearing its limit`)
+
     })
 
     // Warn after reads when any order is approaching the quantity limit
     this.after('READ', 'Orders', (orders, req) => {
       for (const order of orders) {
         if (order.quantity > 900)
-          req.warn(`Order ${order.ID} has quantity ${order.quantity} — approaching the limit of 1000`)
+          req.warn(`Order ${order.ID} is nearing its limit`)
       }
     })
 
