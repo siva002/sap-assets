@@ -1,0 +1,16 @@
+meta {
+  name: bound-and-unbound — Section 04 Chapter 02 Demos
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:4004/odata/v4/orders
+}
+
+docs {
+  baseUrl is the OrdersService root — http://localhost:4004/odata/v4/orders.
+
+  Same code as chapter 01 — nothing new is built. These requests show where
+  binding shows up: in the URL, and in $metadata.
+
+  Run 01-seed first: it stores the new order's key in {{orderId}}.
+}

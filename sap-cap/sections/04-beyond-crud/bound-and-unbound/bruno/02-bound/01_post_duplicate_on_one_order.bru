@@ -1,0 +1,37 @@
+meta {
+  name: POST duplicate on Orders(key) — 200
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/Orders({{orderId}})/OrdersService.duplicate
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "quantityOverride": 100
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.quantity: eq 100
+}
+
+docs {
+  ## Bound — the record comes first in the URL
+
+  duplicate is declared inside Orders' actions block, so the URL names one
+  order first: Orders(key), then /OrdersService.duplicate. CAP hands that key
+  to the handler as req.params[0].
+
+  Expected: 200 OK with the new order.
+}

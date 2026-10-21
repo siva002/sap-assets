@@ -1,0 +1,28 @@
+meta {
+  name: GET orderCount() at the service root — 200
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orderCount()
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  ## Unbound — straight off the service
+
+  orderCount is declared directly in the service block, so there's no
+  entity and no key in the URL.
+
+  Expected: 200 OK with { "value": N }.
+}

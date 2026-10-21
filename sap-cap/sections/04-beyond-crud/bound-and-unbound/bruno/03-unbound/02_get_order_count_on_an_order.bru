@@ -1,0 +1,28 @@
+meta {
+  name: GET orderCount() on Orders(key) — 404
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/Orders({{orderId}})/OrdersService.orderCount()
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  res.status: eq 404
+}
+
+docs {
+  ## An unbound function isn't part of any entity
+
+  Try to call orderCount as if it belonged to an order. It doesn't exist
+  there — it's not on Orders' API surface at all.
+
+  Expected: 404 — Invalid resource path.
+}

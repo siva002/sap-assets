@@ -1,0 +1,32 @@
+meta {
+  name: POST orderCount() — 405, functions are GET only
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orderCount()
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 405
+}
+
+docs {
+  ## Functions are always GET
+
+  Same URL, sent as a POST. CAP refuses — functions are read-only.
+
+  Expected: 405 Method Not Allowed.
+}

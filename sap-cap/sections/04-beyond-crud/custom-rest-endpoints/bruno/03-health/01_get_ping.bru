@@ -1,0 +1,25 @@
+meta {
+  name: GET /ping — custom plain-text endpoint
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/ping
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body: eq OK
+}
+
+docs {
+  ## A bare 200 at a fixed path
+
+  Plain Express GET: no OData, no auth, no $metadata — just "OK".
+
+  Why /ping and not /health: CAP already serves its own /health, and it
+  wins over a custom route on the same path.
+}

@@ -1,0 +1,30 @@
+meta {
+  name: GET the order with $expand=items
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/Orders({{orderId}})?$expand=items
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  res.status: eq 200
+  res.body.items.length: eq 2
+}
+
+docs {
+  ## Read the tree back
+
+  $expand=items returns the parent and its children in one response — the
+  same shape that went in.
+
+  Note: OrderItems has no entity set of its own — a GET on /OrderItems is
+  rejected because it's only exposed through its parent composition.
+}

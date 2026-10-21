@@ -1,0 +1,52 @@
+meta {
+  name: POST items with zero and negative quantity — 400
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "customerId": "C-1003",
+    "region": "APAC",
+    "quantity": 1,
+    "items": [
+      {
+        "product": "Laptop",
+        "quantity": 1
+      },
+      {
+        "product": "Mouse",
+        "quantity": 0
+      },
+      {
+        "product": "Dock",
+        "quantity": -2
+      }
+    ]
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+
+docs {
+  ## Child-level rule
+
+  The handler loops over req.data.items — the whole tree is there. req.error
+  collects one error per bad item instead of stopping at the first.
+
+  Expected: 400 MULTIPLE_ERRORS with two details — Mouse and Dock. Laptop is
+  fine, but the whole tree is rejected: no order, no items.
+}

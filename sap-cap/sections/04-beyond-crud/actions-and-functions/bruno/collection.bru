@@ -1,0 +1,13 @@
+meta {
+  name: actions-and-functions — Section 04 Chapter 01 Demos
+}
+vars:pre-request {
+  baseUrl: http://localhost:4004/odata/v4/orders
+}
+docs {
+  baseUrl is the OrdersService root — http://localhost:4004/odata/v4/orders —
+  the same {{baseUrl}} shown in the slides' Bruno mock.
+
+  Run 01-seed first: it creates an order and stores its key in {{orderId}},
+  which the duplicate requests use.
+}

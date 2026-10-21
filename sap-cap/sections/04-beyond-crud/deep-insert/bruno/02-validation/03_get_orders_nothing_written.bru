@@ -1,0 +1,29 @@
+meta {
+  name: GET Orders — still only one order
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/Orders
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  res.status: eq 200
+  res.body.value.length: eq 1
+}
+
+docs {
+  ## One transaction, all or nothing
+
+  Only the order from 01-deep-insert exists. Both rejected POSTs left no
+  parent and no orphaned items behind.
+
+  (If you've run 01 more than once, the count is however many times you ran it.)
+}

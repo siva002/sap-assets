@@ -1,0 +1,30 @@
+meta {
+  name: GET orderCount()
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orderCount()
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  ## Calling the function
+
+  Straight off the service root — no entity set, no key. The empty
+  parentheses mark it as a function call, not a property.
+
+  Expected: 200 OK with { "value": N } — OData wraps a scalar return in
+  "value". N is the number of orders so far (1 seed + each duplicate).
+  Send it again: same answer, nothing changes.
+}

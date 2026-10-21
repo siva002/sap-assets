@@ -1,0 +1,28 @@
+meta {
+  name: GET duplicate — 405, actions are POST only
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/Orders({{orderId}})/OrdersService.duplicate
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  res.status: eq 405
+}
+
+docs {
+  ## Actions are always POST
+
+  Same URL, sent as a GET. CAP refuses — a GET must be safe to repeat,
+  and an action isn't.
+
+  Expected: 405 Method Not Allowed.
+}

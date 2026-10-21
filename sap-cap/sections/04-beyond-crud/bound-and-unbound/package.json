@@ -1,0 +1,16 @@
+{
+  "name": "bound-and-unbound",
+  "version": "1.0.0",
+  "description": "CAP beyond CRUD — bound vs unbound demo (bound duplicate, unbound orderCount)",
+  "scripts": {
+    "start": "npx cds serve",
+    "dev": "cds watch"
+  },
+  "dependencies": {
+    "@sap/cds": "^10"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3",
+    "@sap/cds-dk": "^10"
+  }
+}

@@ -1,0 +1,34 @@
+meta {
+  name: POST duplicate — no override (falls back to original quantity)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/Orders({{orderId}})/OrdersService.duplicate
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 200
+  res.body.quantity: eq 25
+}
+
+docs {
+  ## quantityOverride is optional
+
+  Same call with an empty body. quantityOverride arrives as undefined, so
+  the handler's `quantityOverride ?? quantity` keeps the original 25.
+
+  Expected: 200 OK with a new order, quantity 25.
+}

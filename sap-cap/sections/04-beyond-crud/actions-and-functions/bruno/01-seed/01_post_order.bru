@@ -1,0 +1,42 @@
+meta {
+  name: POST an order — stores its ID as orderId
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "customerId": "C-1001",
+    "region": "EMEA",
+    "quantity": 25
+  }
+}
+
+script:post-response {
+  bru.setVar("orderId", res.body.ID);
+}
+
+assert {
+  res.status: eq 201
+}
+
+docs {
+  ## Seed — one order to duplicate
+
+  Creates a plain order with a normal CRUD POST. The post-response script
+  saves the generated ID as {{orderId}} so the duplicate requests in
+  02-action can put it in the URL.
+
+  Expected: 201 Created with the new order, including its ID.
+}

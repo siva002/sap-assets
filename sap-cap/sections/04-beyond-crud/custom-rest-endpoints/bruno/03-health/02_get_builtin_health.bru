@@ -1,0 +1,28 @@
+meta {
+  name: GET /health — CAP's built-in endpoint
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/health
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+assert {
+  res.status: eq 200
+  res.body.status: eq UP
+}
+
+docs {
+  ## CAP's own health check
+
+  CAP serves /health out of the box — nothing in this project defines it.
+
+  Expected: 200 OK with { "status": "UP" }.
+}

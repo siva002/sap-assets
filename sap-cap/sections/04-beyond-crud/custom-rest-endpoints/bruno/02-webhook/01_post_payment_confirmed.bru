@@ -1,0 +1,44 @@
+meta {
+  name: POST /webhooks/payment-confirmed — 200
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/webhooks/payment-confirmed
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "event_type": "charge.succeeded",
+    "data": {
+      "object": {
+        "amount": 24999,
+        "metadata": {
+          "orderId": "{{orderId}}"
+        }
+      }
+    }
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  ## The provider's shape, not ours
+
+  This body is shaped by the payment provider — event_type, then
+  data.object.metadata.orderId, nested three levels deep. No CDS type
+  describes it; the Express handler reads it field by field from req.body.
+
+  Expected: 200 OK, and the cds terminal logs
+  "Payment confirmed for order <ID> — C-1001".
+}

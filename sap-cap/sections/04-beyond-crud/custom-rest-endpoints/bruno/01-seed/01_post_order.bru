@@ -1,0 +1,39 @@
+meta {
+  name: POST an order — stores its ID as orderId
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/odata/v4/orders/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "customerId": "C-1001",
+    "region": "EMEA",
+    "quantity": 25
+  }
+}
+
+script:post-response {
+  bru.setVar("orderId", res.body.ID);
+}
+
+assert {
+  res.status: eq 201
+}
+
+docs {
+  ## Seed
+
+  A normal OData create. Saves the order's key as {{orderId}} so the webhook
+  payload can point at a real order.
+}

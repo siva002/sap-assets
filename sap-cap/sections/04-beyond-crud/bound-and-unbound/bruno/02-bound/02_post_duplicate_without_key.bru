@@ -1,0 +1,33 @@
+meta {
+  name: POST duplicate with no key — 400
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/Orders/OrdersService.duplicate
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 400
+}
+
+docs {
+  ## A bound action needs its record
+
+  Same action, but no key in the URL. CAP refuses before the handler runs.
+
+  Expected: 400 — Action "duplicate" must be called on a single instance
+  of OrdersService.Orders.
+}

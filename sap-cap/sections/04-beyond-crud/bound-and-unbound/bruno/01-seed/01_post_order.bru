@@ -1,0 +1,38 @@
+meta {
+  name: POST an order — stores its ID as orderId
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "customerId": "C-1001",
+    "region": "EMEA",
+    "quantity": 25
+  }
+}
+
+script:post-response {
+  bru.setVar("orderId", res.body.ID);
+}
+
+assert {
+  res.status: eq 201
+}
+
+docs {
+  ## Seed
+
+  Creates one order and saves its key as {{orderId}} for the bound calls.
+}

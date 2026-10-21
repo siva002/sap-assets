@@ -1,0 +1,16 @@
+{
+  "name": "deep-insert",
+  "version": "1.0.0",
+  "description": "CAP beyond CRUD — deep insert demo (Orders with composed OrderItems)",
+  "scripts": {
+    "start": "npx cds serve",
+    "dev": "cds watch"
+  },
+  "dependencies": {
+    "@sap/cds": "^10"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3",
+    "@sap/cds-dk": "^10"
+  }
+}

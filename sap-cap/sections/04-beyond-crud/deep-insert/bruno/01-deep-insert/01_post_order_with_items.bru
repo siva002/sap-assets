@@ -1,0 +1,55 @@
+meta {
+  name: POST an order with two items — 201
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "customerId": "C-1001",
+    "region": "EMEA",
+    "quantity": 3,
+    "items": [
+      {
+        "product": "Laptop",
+        "quantity": 1
+      },
+      {
+        "product": "Monitor",
+        "quantity": 2
+      }
+    ]
+  }
+}
+
+script:post-response {
+  bru.setVar("orderId", res.body.ID);
+}
+
+assert {
+  res.status: eq 201
+  res.body.items.length: eq 2
+}
+
+docs {
+  ## One POST, two tables
+
+  The same URL as a plain create — the difference is the items array nested
+  in the body. CAP writes one Orders row and one OrderItems row per item, in
+  one transaction, generates every ID, and fills order_ID on each item with
+  the parent's ID.
+
+  Expected: 201 Created; the response echoes the order with both items, each
+  carrying order_ID equal to the order's ID.
+}

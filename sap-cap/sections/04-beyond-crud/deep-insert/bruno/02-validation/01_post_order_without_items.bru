@@ -1,0 +1,36 @@
+meta {
+  name: POST an order with no items — 400
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/Orders
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "customerId": "C-1002",
+    "region": "APAC",
+    "quantity": 1
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+
+docs {
+  ## Parent-level rule
+
+  The before CREATE handler sees req.data.items is missing.
+
+  Expected: 400 — "An order needs at least one item".
+}

@@ -1,0 +1,37 @@
+meta {
+  name: POST duplicate — quantityOverride 100
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/Orders({{orderId}})/OrdersService.duplicate
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "quantityOverride": 100
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.quantity: eq 100
+}
+
+docs {
+  ## Calling the action
+
+  URL shape: EntitySet(key), then /Namespace.actionName. The key in the URL
+  is what the handler reads from req.params[0]; the body is req.data.
+
+  Expected: 200 OK with a brand-new order — same customerId and region as
+  the seeded one, quantity 100, and a new ID.
+}

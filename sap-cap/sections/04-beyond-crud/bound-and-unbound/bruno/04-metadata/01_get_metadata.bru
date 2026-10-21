@@ -1,0 +1,30 @@
+meta {
+  name: GET $metadata — IsBound true vs false
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/$metadata
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/xml
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  ## Where binding is recorded
+
+  Look for these lines in the response:
+
+  - <Action Name="duplicate" IsBound="true"> with a first parameter
+    "in" of type OrdersService.Orders — the record it's bound to.
+  - <Function Name="orderCount" IsBound="false">, plus a FunctionImport
+    that exposes it at the service root.
+}
